@@ -47,6 +47,7 @@ export class LightStripUpdater {
         this.block = dimensionInput.getBlock(positionInput);
         this.updateAll();
     }
+    // Check every type of light strip connection pathway and update block properties/model part visibility accordingly
     updateAll() {
         breakBlock = false;
         position = this.position;

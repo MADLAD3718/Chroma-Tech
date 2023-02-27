@@ -18,6 +18,7 @@ class Main {
         this.initializeExplode();
     }
     initializeBeforeBlockPlace() {
+        // Filter placement of chroma tech blocks from underwater and on top of other chroma tech blocks
         world.events.beforeItemUseOn.subscribe(event => {
             if (event.item.typeId.startsWith("chroma_tech:") === false) return;
             const blockLocation = new BlockLocation(event.blockLocation.x, event.blockLocation.y, event.blockLocation.z);
@@ -50,7 +51,7 @@ class Main {
             if (event.block.hasTag('lightstrip_sound')) {
                 this.createSound('lightstrip.place', event.block.location);
             }
-            // Move this to doorhandler after it is complete
+            // Reverse doors place beside other doors so double doors can both open from the middle
             if (event.block.hasTag('lightstrip_door')) {
                 const currentPermutation = event.block.permutation;
                 const aboveBlock = event.dimension.getBlock(new BlockLocation(event.block.location.x, event.block.location.y + 1, event.block.location.z));
@@ -82,6 +83,7 @@ class Main {
     }
     initializeBlockBreak() {
         world.events.blockBreak.subscribe((event) => {
+            // Doors use two blocks for top and bottom so when one is broken break the other
             if (event.brokenBlockPermutation.hasTag('lightstrip_door')) {
                 DoorHandler.removeOtherDoorPieces(event);
             }
@@ -109,11 +111,13 @@ class Main {
         });
     }
     initializeBeforeItemUseOn() {
+        // Make sure we can actually place a door here before letting the event go though
         world.events.beforeItemUseOn.subscribe((event) => {
             DoorHandler.doorPlace(event);
         });
     }
     initializePistonPush() {
+        // Update lightstrip connections upon piston push events
         world.events.pistonActivate.subscribe(event => this.blockPush(event));
     }
 
@@ -177,6 +181,7 @@ class Main {
         const startPosition = new BlockLocation(location.x - 1, location.y - 1, location.z - 1)
         const endPosition = new BlockLocation(location.x + 1, location.y + 1, location.z + 1);
         const blockPositions = startPosition.blocksBetween(endPosition);
+        // Update surrounding fences and light strips
         for (const position of blockPositions) {
             if (position.y < -64 || position.y > 319) continue;
             if (dimension.getBlock(position).permutation.hasTag('light_strip'))

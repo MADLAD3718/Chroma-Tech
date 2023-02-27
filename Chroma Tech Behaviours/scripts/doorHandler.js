@@ -2,6 +2,7 @@ import { BlockLocation, MinecraftBlockTypes, ItemStack, Items, Location, world, 
 
 export class DoorHandler {
     static removeOtherDoorPieces(event) {
+        // Remove the other door piece when one is broken
         if (event.brokenBlockPermutation.getProperty('chroma_tech:piece').value === 1 && !this.playerIsInCreative(event.player)) {
             event.dimension.spawnItem(new ItemStack(Items.get(event.brokenBlockPermutation.type.id)), new Location(event.block.location.x + 0.5, event.block.location.y - 0.5, event.block.location.z + 0.5));
         }
@@ -14,6 +15,7 @@ export class DoorHandler {
         }
     }
     static toggleDoor(event) {
+        // If one door part is opened/closed then update the other as well
         const eventBlock = event.source.dimension.getBlock(event.blockLocation);
         let otherPieceBlock;
         if (eventBlock.permutation.getProperty("chroma_tech:piece").value === 0) {
@@ -26,6 +28,7 @@ export class DoorHandler {
         otherPieceBlock.setPermutation(newPerm);
     }
     static breakDoorFromBottom(event) {
+        // Only one of the door block parts drops an item, so spawn an item on the other one if it is broken instead
         const specialLocation = new Location(event.block.location.x + 0.5, event.block.location.y + 1.5, event.block.location.z + 0.5);
         event.dimension.spawnItem(new ItemStack(Items.get(this.getRelativeBlock(event.dimension, event.block.location, 0, 1, 0).type.id)), specialLocation);
         this.getRelativeBlock(event.dimension, event.block.location, 0, 1, 0).setType(MinecraftBlockTypes.air);
