@@ -1,0 +1,7 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:texture_set": {
+        "color": [ 77, 0, 66, 255 ],
+        "metalness_emissive_roughness": [0,8,0]
+    }
+}

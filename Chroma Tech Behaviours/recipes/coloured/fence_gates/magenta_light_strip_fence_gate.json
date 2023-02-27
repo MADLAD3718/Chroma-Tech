@@ -1,0 +1,23 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "chroma_tech:magenta_light_strip_fence_gate_recipe"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"pattern": [
+			"##"
+		],
+		"key": {
+			"#": {
+				"item": "chroma_tech:magenta_light_strip_fence"
+			}
+		},
+		"result": {
+			"item": "chroma_tech:magenta_light_strip_fence_gate",
+			"count": 2
+		}
+	}
+}

@@ -1,0 +1,108 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.light_strip",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "north",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 0, -8], "size": [2, 1, 7], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "east",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 0, -1], "size": [7, 1, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "south",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 0, 1], "size": [2, 1, 7], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "west",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [1, 0, -1], "size": [7, 1, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "mid",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 0, -1], "size": [2, 1, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "extendnorth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 1, -8], "size": [2, 15, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "extendeast",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-8, 1, -1], "size": [1, 15, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "extendsouth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 1, 7], "size": [2, 15, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "extendwest",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [7, 1, -1], "size": [1, 15, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "topedgenorth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 0, -9], "size": [2, 1, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "topedgesouth",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1, 0, 8], "size": [2, 1, 1], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "topedgewest",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [8, 0, -1], "size": [1, 1, 2], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "topedgeeast",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-9, 0, -1], "size": [1, 1, 2], "uv": [0, 0]}
+					]
+				}
+			]
+		}
+	]
+}

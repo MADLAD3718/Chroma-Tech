@@ -1,0 +1,23 @@
+{
+   "format_version" : "1.14.0",
+   "sound_definitions" : {
+      "lightstrip.place" : {
+         "category" : "block",
+         "sounds" : [
+            {
+               "name" : "sounds/block/light_strip/place/light_strip_place",
+               "volume" : 1.0
+            }
+         ]
+      },
+      "lightstrip.break" : {
+         "category" : "block",
+         "sounds" : [
+            {
+               "name" : "sounds/block/light_strip/break/light_strip_break",
+               "volume" : 1.0
+            }
+         ]
+      }
+   }
+}

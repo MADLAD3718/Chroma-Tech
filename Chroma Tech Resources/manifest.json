@@ -1,0 +1,39 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "§l§cC§6h§er§ao§bm§da§f Tech§r",
+		"description": "Resources for §l§cC§6h§er§ao§bm§da§f Tech§r, designed by §6MADLAD3718§r. Version 2.0",
+		"uuid": "e004be7e-aa28-46a1-a68d-c55c1fb41e90",
+		"version": [
+			2,
+			0,
+			0
+		],
+		"min_engine_version": [
+			1,
+			17,
+			30
+		]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "78ad1edf-0dd3-4bc9-b88c-d264ff1285b4",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"version": [
+				2,
+				0,
+				0
+			],
+			"uuid": "3e7d6df2-be04-43db-b7db-5cc87ff0a095"
+		}
+	]
+}

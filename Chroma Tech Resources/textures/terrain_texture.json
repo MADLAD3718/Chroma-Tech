@@ -1,0 +1,60 @@
+{
+	"resource_pack_name": "chroma_tech",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"RGB": {
+			"textures": "textures/blocks/RGB"
+		},
+		"black": {
+			"textures": "textures/blocks/coloured/black"
+		},
+		"blue": {
+			"textures": "textures/blocks/coloured/blue"
+		},
+		"light_blue": {
+			"textures": "textures/blocks/coloured/light_blue"
+		},
+		"brown": {
+			"textures": "textures/blocks/coloured/brown"
+		},
+		"orange": {
+			"textures": "textures/blocks/coloured/orange"
+		},
+		"light_gray": {
+			"textures": "textures/blocks/coloured/light_gray"
+		},
+		"gray": {
+			"textures": "textures/blocks/coloured/gray"
+		},
+		"purple": {
+			"textures": "textures/blocks/coloured/purple"
+		},
+		"lime": {
+			"textures": "textures/blocks/coloured/lime"
+		},
+		"cyan": {
+			"textures": "textures/blocks/coloured/cyan"
+		},
+		"green": {
+			"textures": "textures/blocks/coloured/green"
+		},
+		"red": {
+			"textures": "textures/blocks/coloured/red"
+		},
+		"magenta": {
+			"textures": "textures/blocks/coloured/magenta"
+		},
+		"pink": {
+			"textures": "textures/blocks/coloured/pink"
+		},
+		"yellow": {
+			"textures": "textures/blocks/coloured/yellow"
+		},
+		"white": {
+			"textures": "textures/blocks/coloured/white"
+		},
+		"light_strip_carried": {
+			"textures": "textures/items/light_strip"
+		}
+	}
+}

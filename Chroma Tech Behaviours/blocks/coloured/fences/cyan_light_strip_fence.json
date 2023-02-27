@@ -1,0 +1,369 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:block": {
+		"description": {
+			"identifier": "chroma_tech:cyan_light_strip_fence",
+			"properties": {
+				"chroma_tech:north": [
+					0,
+					1
+				],
+				"chroma_tech:south": [
+					0,
+					1
+				],
+				"chroma_tech:east": [
+					0,
+					1
+				],
+				"chroma_tech:west": [
+					0,
+					1
+				],
+				"chroma_tech:mid": [
+					0,
+					1
+				],
+				"chroma_tech:alt_ne_corner": [
+					0,
+					1
+				],
+				"chroma_tech:alt_se_corner": [
+					0,
+					1
+				],
+				"chroma_tech:alt_nw_corner": [
+					0,
+					1
+				],
+				"chroma_tech:alt_sw_corner": [
+					0,
+					1
+				]
+			}
+		},
+		"permutations": [
+			{
+				//none
+				"condition": "query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 2]
+					}
+				}
+			},
+			{
+				//north
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 9]
+					}
+				}
+			},
+			{
+				//dual ns
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 16]
+						},
+						"minecraft:pick_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 16]
+						}
+				}
+			},
+			{
+				//south
+				"condition": "query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 9]
+						},
+						"minecraft:pick_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 9]
+						}
+				}
+			},
+			{
+				//west
+				"condition": "query.block_property('chroma_tech:north') == 0 && q.block_property('chroma_tech:south') == 0 && q.block_property('chroma_tech:east') == 0 && q.block_property('chroma_tech:west') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 2]
+						},
+						"minecraft:pick_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 2]
+						}
+				}
+			},
+			{
+				//east
+				"condition": "query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 2]
+						},
+						"minecraft:pick_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 2]
+						}
+				}
+			},
+			{
+				//dual ew
+				"condition": "query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-8, 0, -1],
+						"size": [16, 16, 2]
+						},
+						"minecraft:pick_collision": {
+						"origin": [-8, 0, -1],
+						"size": [16, 16, 2]
+						}
+				}
+			},
+			{
+				//nw corner
+				"condition": "( query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 1 ) && query.block_property('chroma_tech:alt_nw_corner') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -8],
+						"size": [9, 16, 9]
+					},
+					"tag:nw": {}
+				}
+			},
+			{
+				//alt nw corner
+				"condition": "query.block_property('chroma_tech:alt_nw_corner') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -8],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//ne corner
+				"condition": "( query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 0 ) && query.block_property('chroma_tech:alt_ne_corner') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -8],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//se corner
+				"condition": "( ( query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 0 ) && query.block_property('chroma_tech:alt_se_corner') == 0 )",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//alt ne corner
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:alt_ne_corner') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -8],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//sw corner
+				"condition": "( query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 1 ) && query.block_property('chroma_tech:alt_sw_corner') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 9]
+					},
+					"tag:sw": {}
+				}
+			},
+			{
+				//alt sw corner
+				"condition": "( query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:west') == 1 ) && query.block_property('chroma_tech:alt_sw_corner') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//alt se corner
+				"condition": "query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:alt_se_corner') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 9]
+					}
+				}
+			},
+			{
+				//tri ews
+				"condition": "query.block_property('chroma_tech:north') == 0 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -1],
+						"size": [16, 16, 9]
+					},
+					"tag:sw": {},
+					"tag:se": {}
+				}
+			},
+			{
+				//tri ewn
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 0 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -8],
+						"size": [2, 16, 9]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -8],
+						"size": [16, 16, 9]
+					},
+					"tag:ne": {}
+				}
+			},
+			{
+				//tri nsw
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 0 && query.block_property('chroma_tech:west') == 1",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-1, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-1, 0, -8],
+						"size": [9, 16, 16]
+					},
+					"tag:nw": {}
+				}
+			},
+			{
+				//tri nse
+				"condition": "query.block_property('chroma_tech:north') == 1 && query.block_property('chroma_tech:south') == 1 && query.block_property('chroma_tech:east') == 1 && query.block_property('chroma_tech:west') == 0",
+				"components": {
+					"minecraft:entity_collision": {
+						"origin": [-8, 0, -1],
+						"size": [9, 16, 2]
+					},
+					"minecraft:pick_collision": {
+						"origin": [-8, 0, -8],
+						"size": [9, 16, 16]
+					},
+					"tag:se": {}
+				}
+			}
+		],
+		"components": {
+			"minecraft:loot": "loot_tables/blocks/coloured/fences/cyan_light_strip_fence.json",
+			"minecraft:entity_collision": {
+				"origin": [-1, 0, -1],
+				"size": [2, 16, 2]
+			},
+			"minecraft:pick_collision": {
+				"origin": [-8, 0, -8],
+				"size": [16, 16, 16]
+			},
+			"minecraft:breathability": "air",
+			"tag:wood": {},
+			"tag:fence": {},
+			"minecraft:creative_category": {
+				"group": "itemGroup.name.fence",
+				"category": "construction"
+			},
+			"minecraft:flammable": {
+				"burn_odds": 5,
+				"flame_odds": 5
+			},
+			"minecraft:geometry": "geometry.fence",
+			"minecraft:destroy_time": 0.3,
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "cyan",
+					"render_method": "opaque",
+					"face_dimming": false,
+					"ambient_occlusion": false
+				}
+			},
+			"minecraft:on_player_placing": {
+				"event": "update_facing_direction"
+			},
+			"minecraft:part_visibility": {
+				"rules": {
+					"north": "query.block_property('chroma_tech:north') == 1",
+					"south": "query.block_property('chroma_tech:south') == 1",
+					"east": "query.block_property('chroma_tech:east') == 1",
+					"west": "query.block_property('chroma_tech:west') == 1",
+					"mid": "query.block_property('chroma_tech:mid') == 0"
+				}
+			},
+			"minecraft:block_light_emission": 1.0,
+			"minecraft:block_light_absorption": 0,
+			"tag:lightstrip_sound": {},
+			"tag:light_strip_fence": {}
+		}
+	}
+}

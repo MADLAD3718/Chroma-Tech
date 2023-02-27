@@ -1,0 +1,21 @@
+{
+   "block_sounds" : {
+      "lightstrip" : {
+         "events" : {
+            "break" : {
+               "pitch" : 1.0,
+               "sound" : "random.glass",
+               "volume" : 1.0
+            },
+            "default" : "",
+            "place" : {
+               "pitch" : 1.0,
+               "sound" : "lightstrip.place",
+               "volume" : 1.0
+            }
+         },
+         "pitch" : 1.0,
+         "volume" : 1.0
+      }
+   }
+}

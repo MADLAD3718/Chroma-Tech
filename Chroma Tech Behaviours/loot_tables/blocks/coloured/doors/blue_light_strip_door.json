@@ -1,0 +1,14 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "chroma_tech:blue_light_strip_door",
+					"weight": 1
+				}
+			]
+		}
+	]
+}

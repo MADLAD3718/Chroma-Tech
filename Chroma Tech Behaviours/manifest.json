@@ -1,0 +1,54 @@
+{
+	"format_version": 2,
+	"header": {
+		"name": "§l§cC§6h§er§ao§bm§da§f Tech§r",
+		"description": "Behaviours for §l§cC§6h§er§ao§bm§da§f Tech§r, designed by §6MADLAD3718§r. Version 2.0",
+		"uuid": "3e7d6df2-be04-43db-b7db-5cc87ff0a095",
+		"version": [
+			2,
+			0,
+			0
+		],
+		"min_engine_version": [
+			1, 19, 60
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "3d6f323c-a8c1-4916-bb92-f2fbe3ab0631",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"description": "Script that implements advanced light strip and chroma block functionality.",
+			"type": "script",
+			"language": "javascript",
+			"uuid": "b32c99be-0bae-4c87-b181-3fa5497d444c",
+			"version": [
+				0,
+				0,
+				1
+			],
+			"entry": "scripts/main.js"
+		}
+	],
+	"dependencies": [
+		{
+			"version": [
+				2,
+				0,
+				0
+			],
+			"uuid": "e004be7e-aa28-46a1-a68d-c55c1fb41e90"
+		},
+		// Gametest dependencies
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.1.0-beta"
+		}
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"pools": [
+		{
+			"rolls": 1,
+			"entries": [
+				{
+					"type": "item",
+					"name": "chroma_tech:light_strip_fence",
+					"weight": 1
+				}
+			]
+		}
+	]
+}
