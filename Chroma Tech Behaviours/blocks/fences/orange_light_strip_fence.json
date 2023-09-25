@@ -1,0 +1,262 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:block": {
+        "description": {
+            "identifier": "chroma_tech:orange_light_strip_fence",
+            "properties": { // ALL
+                "chroma_tech:center": [true, false],
+                "chroma_tech:north": [false, true],
+                "chroma_tech:south": [false, true],
+                "chroma_tech:east": [false, true],
+                "chroma_tech:west": [false, true],
+                "chroma_tech:alternate": [false, true]
+            },
+            "menu_category": {
+				"category": "construction",
+                "group": "itemGroup.name.fence"
+			},
+			"is_experimental": true
+        },
+        "permutations": [
+            // Single Piece
+            {
+                "condition": "q.block_property('chroma_tech:north')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:south')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:east')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 16, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:west')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            // Double Accross
+            {
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:south')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:east') && q.block_property('chroma_tech:west')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            // Corner
+            {
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:east')",
+                "components": { // North Collision
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [10, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:east') && q.block_property('chroma_tech:south')",
+                "components": { // South Collision
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:south') && q.block_property('chroma_tech:west')",
+                "components": { // West Collision
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:west') && q.block_property('chroma_tech:north')",
+                "components": { // West Collision
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [10, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            // Triple
+            { 
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:south') && q.block_property('chroma_tech:east')",
+                "components": { // N + S
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [10, 16, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:south') && q.block_property('chroma_tech:west')",
+                "components": { //  N + S
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [10, 16, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:east') && q.block_property('chroma_tech:west') && q.block_property('chroma_tech:north')",
+                "components": { // E + W
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [16, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('chroma_tech:east') && q.block_property('chroma_tech:west') && q.block_property('chroma_tech:south')",
+                "components": { // E + W
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            // All
+            {
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:south') && q.block_property('chroma_tech:east') && q.block_property('chroma_tech:west')",
+                "components": { // N + S
+                    "minecraft:selection_box": true,
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            // Alternate ALL
+            {
+                "condition": "q.block_property('chroma_tech:north') && q.block_property('chroma_tech:south') && q.block_property('chroma_tech:east') && q.block_property('chroma_tech:west') && q.block_property('chroma_tech:alternate')",
+                "components": { // E + W
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            }
+        ],
+        "components": {
+            "minecraft:geometry": {
+                "identifier": "geometry.light_strip_fence",
+                "bone_visibility": {
+                    "center": "q.block_property('chroma_tech:center')",
+                    "north": "q.block_property('chroma_tech:north')",
+                    "south": "q.block_property('chroma_tech:south')",
+                    "east": "q.block_property('chroma_tech:east')",
+                    "west": "q.block_property('chroma_tech:west')"
+                }
+            },
+            "minecraft:selection_box": {
+                "origin": [-2, 0, -2],
+                "size": [4, 16, 4]
+            },
+            "minecraft:collision_box": {
+                "origin": [-2, 0, -2],
+                "size": [4, 16, 4]
+            },
+            "minecraft:material_instances": {
+				"*": {
+					"texture": "orange",
+					"ambient_occlusion": false,
+					"face_dimming": false,
+					"render_method": "opaque"
+				}
+			},
+            "minecraft:light_emission": 15,
+            "minecraft:unwalkable": true,
+            "minecraft:light_dampening": 0,
+            "tag:light_strip_fence": {}
+        }
+    }
+}

@@ -1,7 +1,7 @@
 [
   {
-    "flipbook_texture": "textures/blocks/RGB",
-    "atlas_tile": "RGB",
+    "flipbook_texture": "textures/blocks/chroma",
+    "atlas_tile": "chroma",
     "ticks_per_frame": 20,
     "frames": [ 0, 1, 2, 3, 4, 5 ],
     "blend_frames": true

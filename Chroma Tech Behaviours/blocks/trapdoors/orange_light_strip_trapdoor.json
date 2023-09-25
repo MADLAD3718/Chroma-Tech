@@ -1,0 +1,91 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:block": {
+        "description": {
+            "identifier": "chroma_tech:orange_light_strip_trapdoor",
+            "properties": {
+                "chroma_tech:open_t": [false, true]
+            },
+            "menu_category": {
+				"category": "construction",
+                "group": "itemGroup.name.trapdoor"
+			},
+            "traits": {
+                "minecraft:placement_direction": { "enabled_states": ["minecraft:cardinal_direction"] },
+                "minecraft:placement_position": { "enabled_states": ["minecraft:vertical_half"] }
+            },
+			"is_experimental": true
+        },
+        "permutations": [
+            {
+                "condition": "q.block_property('chroma_tech:open_t')",
+                "components": {
+                    "minecraft:geometry": "geometry.light_strip_trapdoor_open",
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [16, 16, 2]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [16, 16, 2]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('minecraft:vertical_half') == 'top' && !q.block_property('chroma_tech:open_t')",
+                "components": {
+                    "minecraft:geometry": "geometry.light_strip_trapdoor_top",
+                    "minecraft:selection_box": {
+                        "origin": [-8, 14, -8],
+                        "size": [16, 2, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 14, -8],
+                        "size": [16, 2, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_property('minecraft:cardinal_direction') == 'south'",
+                "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
+            },
+            {
+                "condition": "q.block_property('minecraft:cardinal_direction') == 'east'",
+                "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
+            },
+            {
+                "condition": "q.block_property('minecraft:cardinal_direction') == 'west'",
+                "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
+            }
+        ],
+        "components": {
+            "minecraft:geometry": "geometry.light_strip_trapdoor",
+            "minecraft:selection_box": {
+                "origin": [-8, 0, -8],
+                "size": [16, 2, 16]
+            },
+            "minecraft:collision_box": {
+                "origin": [-8, 0, -8],
+                "size": [16, 2, 16]
+            },
+            "minecraft:material_instances": {
+				"*": {
+					"texture": "orange",
+					"ambient_occlusion": false,
+					"face_dimming": false,
+					"render_method": "opaque"
+				}
+			},
+            "minecraft:light_emission": 15,
+            "minecraft:unwalkable": true,
+            "minecraft:light_dampening": 0,
+            "minecraft:on_interact": { "event": "chroma_tech:toggle" },
+            "tag:light_strip_trapdoor": {}
+        },
+        "events": {
+            "chroma_tech:toggle": {
+                "set_block_property": { "chroma_tech:open_t": "!q.block_property('chroma_tech:open_t')" }
+            }
+        }
+    }
+}

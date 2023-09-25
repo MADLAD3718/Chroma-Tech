@@ -1,54 +1,35 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§l§cC§6h§er§ao§bm§da§f Tech§r",
-		"description": "Behaviours for §l§cC§6h§er§ao§bm§da§f Tech§r, designed by §6MADLAD3718§r. Version 2.0",
-		"uuid": "3e7d6df2-be04-43db-b7db-5cc87ff0a095",
-		"version": [
-			2,
-			0,
-			0
-		],
-		"min_engine_version": [
-			1, 19, 60
-		]
+		"name": "Chroma Tech 2.0",
+		"description": "Behaviours for Chroma Tech 2.0, designed by §6MADLAD3718§r.",
+		"uuid": "c507b9fe-b382-49b1-9a5b-d6f9bd025f2c",
+		"version": [2,0,0],
+		"min_engine_version": [1,20,10]
 	},
 	"modules": [
 		{
 			"type": "data",
-			"uuid": "3d6f323c-a8c1-4916-bb92-f2fbe3ab0631",
-			"version": [
-				1,
-				0,
-				0
-			]
+			"uuid": "a8b331d2-dd9d-4fbd-b13f-0220f126de85",
+			"version": [1, 0, 0]
 		},
 		{
-			"description": "Script that implements advanced light strip and chroma block functionality.",
+			"description": "Script that implements advanced chroma tech functionality.",
 			"type": "script",
 			"language": "javascript",
 			"uuid": "b32c99be-0bae-4c87-b181-3fa5497d444c",
-			"version": [
-				0,
-				0,
-				1
-			],
+			"version": [2,0,0],
 			"entry": "scripts/main.js"
 		}
 	],
 	"dependencies": [
 		{
-			"version": [
-				2,
-				0,
-				0
-			],
-			"uuid": "e004be7e-aa28-46a1-a68d-c55c1fb41e90"
+			"version": [2,0,0],
+			"uuid": "f7d4c41f-903b-4418-8c33-04590a53eb80"
 		},
-		// Gametest dependencies
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.1.0-beta"
+			"version": "1.6.0-beta"
 		}
 	]
 }

@@ -1,39 +1,23 @@
 {
 	"format_version": 2,
 	"header": {
-		"name": "§l§cC§6h§er§ao§bm§da§f Tech§r",
-		"description": "Resources for §l§cC§6h§er§ao§bm§da§f Tech§r, designed by §6MADLAD3718§r. Version 2.0",
-		"uuid": "e004be7e-aa28-46a1-a68d-c55c1fb41e90",
-		"version": [
-			2,
-			0,
-			0
-		],
-		"min_engine_version": [
-			1,
-			17,
-			30
-		]
+		"name": "Chroma Tech 2.0",
+		"description": "Resources for Chroma Tech 2.0, designed by §6MADLAD3718§r.",
+		"uuid": "f7d4c41f-903b-4418-8c33-04590a53eb80",
+		"version": [2,0,0],
+		"min_engine_version": [1,20,10]
 	},
 	"modules": [
 		{
 			"type": "resources",
-			"uuid": "78ad1edf-0dd3-4bc9-b88c-d264ff1285b4",
-			"version": [
-				1,
-				0,
-				0
-			]
+			"uuid": "af0eeda9-1c35-4b9a-adcf-f5217aa9bb7b",
+			"version": [1,0,0]
 		}
 	],
 	"dependencies": [
 		{
-			"version": [
-				2,
-				0,
-				0
-			],
-			"uuid": "3e7d6df2-be04-43db-b7db-5cc87ff0a095"
+			"version": [2,0,0],
+			"uuid": "c507b9fe-b382-49b1-9a5b-d6f9bd025f2c"
 		}
 	]
 }

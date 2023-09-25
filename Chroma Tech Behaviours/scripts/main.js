@@ -1,210 +1,58 @@
-import { world, BlockLocation, Location, BlockPistonComponent, Direction, PistonActivateEvent } from "@minecraft/server";
-import { FenceUpdater } from "./updateFence";
-import { LightStripUpdater } from "./updateLightStrip";
-import { DoorHandler } from "./doorHandler";
+import { world, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ItemUseOnBeforeEvent, ItemStartUseOnAfterEvent } from "@minecraft/server";
+import { alterLightStrip, validLightStripPlacement } from "./light_strip";
+import { breakLightStripDoor, interactLightStripDoor, placeLightStripDoor, validLightStripDoorPlacement } from "./light_strip_door";
+import { alterLightStripFence, breakCollider, interactLightStripFenceCollider } from "./light_strip_fence";
+import { alterLightStripFenceGate, interactLightStripFenceGate } from "./light_strip_fence_gate";
+import { interactLightStripTrapdoor } from "./light_strip_trapdoor";
+import { alterSolidBlock } from "./blocks";
 
-class Main {
-    constructor() {
-        this.initialize();
-    }
-    //--------------SETUP EVENTS--------------//
-    initialize() {
-        this.initializeBeforeBlockPlace();
-        this.initializeBlockPlace();
-        this.initializeBlockBreak();
-        this.initializeItemUseOn();
-        this.initializeBeforeItemUseOn();
-        this.initializePistonPush();
-        this.initializeExplode();
-    }
-    initializeBeforeBlockPlace() {
-        // Filter placement of chroma tech blocks from underwater and on top of other chroma tech blocks
-        world.events.beforeItemUseOn.subscribe(event => {
-            if (event.item.typeId.startsWith("chroma_tech:") === false) return;
-            const blockLocation = new BlockLocation(event.blockLocation.x, event.blockLocation.y, event.blockLocation.z);
-            switch (event.blockFace) {
-                case (Direction.up):
-                    blockLocation.y++;
-                    break;
-                case (Direction.down):
-                    blockLocation.y--;
-                    break;
-                case (Direction.north):
-                    blockLocation.z--;
-                    break;
-                case (Direction.south):
-                    blockLocation.z++;
-                    break;
-                case (Direction.east):
-                    blockLocation.x++;
-                    break;
-                case (Direction.west):
-                    blockLocation.x--;
-            }
-            if (blockLocation.y < -64 || blockLocation.y > 319) return;
-            if (event.source.dimension.getBlock(blockLocation).typeId === "minecraft:water" || event.source.dimension.getBlock(event.blockLocation).typeId === "minecraft:kelp" || event.source.dimension.getBlock(event.blockLocation).typeId === "minecraft:water") event.cancel = true;
-        })
-    }
-    initializeBlockPlace() {
-        world.events.blockPlace.subscribe(event => {
-            // Play buzz part of place sound
-            if (event.block.hasTag('lightstrip_sound')) {
-                this.createSound('lightstrip.place', event.block.location);
-            }
-            // Reverse doors place beside other doors so double doors can both open from the middle
-            if (event.block.hasTag('lightstrip_door')) {
-                const currentPermutation = event.block.permutation;
-                const aboveBlock = event.dimension.getBlock(new BlockLocation(event.block.location.x, event.block.location.y + 1, event.block.location.z));
-                const abovePermutation = event.block.permutation;
-                abovePermutation.getProperty('chroma_tech:piece').value = 1;
-                let leftBlock;
-                switch (currentPermutation.getProperty('chroma_tech:direction').value) {
-                    case 0:
-                        leftBlock = this.getRelativeBlock(event.dimension, event.block.location, -1, 0, 0);
-                        break;
-                    case 1:
-                        leftBlock = this.getRelativeBlock(event.dimension, event.block.location, 1, 0, 0);
-                        break;
-                    case 2:
-                        leftBlock = this.getRelativeBlock(event.dimension, event.block.location, 0, 0, 1);
-                        break;
-                    case 3:
-                        leftBlock = this.getRelativeBlock(event.dimension, event.block.location, 0, 0, -1);
-                }
-                if (leftBlock.hasTag('lightstrip_door') && leftBlock.permutation.getProperty('chroma_tech:piece').value === 0) {
-                    currentPermutation.getProperty('chroma_tech:reversed').value = 1;
-                    abovePermutation.getProperty('chroma_tech:reversed').value = 1;
-                }
-                event.block.setPermutation(currentPermutation);
-                aboveBlock.setPermutation(abovePermutation);
-            }
-            this.updateNeighbouringBlocks(event.dimension, event.block.location);
-        });
-    }
-    initializeBlockBreak() {
-        world.events.blockBreak.subscribe((event) => {
-            // Doors use two blocks for top and bottom so when one is broken break the other
-            if (event.brokenBlockPermutation.hasTag('lightstrip_door')) {
-                DoorHandler.removeOtherDoorPieces(event);
-            }
-            if (event.block.location.y < 319 && this.getRelativeBlock(event.dimension, event.block.location, 0, 1, 0).hasTag('lightstrip_door')) {
-                DoorHandler.breakDoorFromBottom(event);
-            }
-            // Play buzz part of break sound
-            if (event.brokenBlockPermutation.hasTag('lightstrip_sound')) {
-                this.createSound('lightstrip.break', event.block.location);
-            }
-            this.updateNeighbouringBlocks(event.dimension, event.block.location);
-        });
-    }
-    initializeItemUseOn() {
-        world.events.itemUseOn.subscribe(event => {
-            const eventBlock = event.source.dimension.getBlock(event.blockLocation);
-            // Play interact sound
-            if ((eventBlock.hasTag('lightstrip_door') || eventBlock.hasTag('lightstrip_fence_gate') || eventBlock.hasTag('lightstrip_trapdoor')) && (!event.source.isSneaking || event.item.typeId === '')) {
-                this.createSound('random.door_close', event.blockLocation);
-            }
-            // Handle Door behaviours
-            if (eventBlock.hasTag('lightstrip_door') && (!event.source.isSneaking || event.item.typeId === '')) {
-                DoorHandler.toggleDoor(event);
-            }
-        });
-    }
-    initializeBeforeItemUseOn() {
-        // Make sure we can actually place a door here before letting the event go though
-        world.events.beforeItemUseOn.subscribe((event) => {
-            DoorHandler.doorPlace(event);
-        });
-    }
-    initializePistonPush() {
-        // Update lightstrip connections upon piston push events
-        world.events.pistonActivate.subscribe(event => this.blockPush(event));
-    }
+world.afterEvents.playerPlaceBlock.subscribe(placeBlock);
+world.afterEvents.playerBreakBlock.subscribe(breakBlock);
+world.afterEvents.itemStartUseOn.subscribe(interactHandler);
+world.beforeEvents.itemUseOn.subscribe(placementFilter);
 
-    /**
-     * @param {PistonActivateEvent} event 
-     */
-    async blockPush(event) {
-        const isExpanding = event.isExpanding;
-        const piston = event.piston;
-        const attachedBlocks = event.piston.attachedBlocks;
-        const dimension = event.dimension;
-        const block = event.block;
-        await this.pistonStop(piston);
-        for (const blockLocation of attachedBlocks) {
-            const finalLocation = new BlockLocation(blockLocation.x, blockLocation.y, blockLocation.z);
-            switch (block.permutation.getProperty('facing_direction').value) {
-                case 'south':
-                    isExpanding ? finalLocation.z-- : finalLocation.z++;
-                    break;
-                case 'north':
-                    isExpanding ? finalLocation.z++ : finalLocation.z--;
-                    break;
-                case 'west':
-                    isExpanding ? finalLocation.x++ : finalLocation.x--;
-                    break;
-                case 'east':
-                    isExpanding ? finalLocation.x-- : finalLocation.x++;
-                    break;
-                case 'up':
-                    isExpanding ? finalLocation.y++ : finalLocation.y--;
-                    break;
-                case 'down':
-                    isExpanding ? finalLocation.y-- : finalLocation.y++;
-            }
-            this.updateNeighbouringBlocks(dimension, blockLocation);
-            this.updateNeighbouringBlocks(dimension, finalLocation);
-        }
-    }
-
-    /**
-    * Returns a promise that resolves after a given piston has stopped moving.
-    * @param {BlockPistonComponent} piston The block piston component to wait for movement to complete.
-    */
-    pistonStop(piston) {
-        return new Promise(resolve => {
-            const tickCallBack = world.events.tick.subscribe(() => {
-                if (piston?.isMoving ?? false === true) return;
-                world.events.tick.unsubscribe(tickCallBack);
-                resolve();
-            })
-        })
-    }
-
-    initializeExplode() {
-        world.events.blockExplode.subscribe(event => this.updateNeighbouringBlocks(event.dimension, event.block.location));
-    }
-
-    //-------------BLOCK UPDATING-------------//
-    updateNeighbouringBlocks(dimension, location) {
-        // For every block around the event in particular
-        const startPosition = new BlockLocation(location.x - 1, location.y - 1, location.z - 1)
-        const endPosition = new BlockLocation(location.x + 1, location.y + 1, location.z + 1);
-        const blockPositions = startPosition.blocksBetween(endPosition);
-        // Update surrounding fences and light strips
-        for (const position of blockPositions) {
-            if (position.y < -64 || position.y > 319) continue;
-            if (dimension.getBlock(position).permutation.hasTag('light_strip'))
-                new LightStripUpdater(dimension, position);
-            if (dimension.getBlock(position).hasTag('light_strip_fence'))
-                new FenceUpdater(dimension, position);
-        }
-    }
-
-    //-------------BLOCK CHECKING-------------//
-    getRelativeBlock(dimension, position, offsetX, offsetY, offsetZ) {
-        return dimension.getBlock(new BlockLocation(position.x + offsetX, position.y + offsetY, position.z + offsetZ));
-    }
-
-    //-----------------SOUNDS-----------------//
-    createSound(soundID, blockPosition) {
-        const soundOptions = {
-            location: new Location(blockPosition.x + 0.5, blockPosition.y + 0.5, blockPosition.z + 0.5),
-            pitch: 1.0,
-            volume: 1.0
-        }
-        world.playSound(soundID, soundOptions);
-    }
+/**
+ * @remarks Updates any light strips surrounding a block place event.
+ * @param {PlayerPlaceBlockAfterEvent} event
+ */
+function placeBlock(event) {
+    if (event.block.hasTag("light_strip")) alterLightStrip(event.block, event.block.permutation, true);
+    else if (event.block.hasTag("light_strip_door")) placeLightStripDoor(event.block);
+    else if (event.block.hasTag("light_strip_fence")) alterLightStripFence(event.block, event.block.permutation, true);
+    else if (event.block.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(event.block, event.block.permutation, true);
+    else if (event.block.isSolid) alterSolidBlock(event.block, true);
 }
 
-new Main();
+/**
+ * @remarks Updates any light strips surrounding a light strip break event.
+ * @param {PlayerPlaceBlockBeforeEvent} event
+ */
+function breakBlock(event) {
+    if (event.brokenBlockPermutation.hasTag("light_strip")) alterLightStrip(event.block, event.brokenBlockPermutation, false);
+    else if (event.brokenBlockPermutation.hasTag("light_strip_door")) breakLightStripDoor(event.block, event.brokenBlockPermutation);
+    else if (event.brokenBlockPermutation.hasTag("light_strip_fence")) alterLightStripFence(event.block, event.brokenBlockPermutation, false);
+    else if (event.brokenBlockPermutation.hasTag("light_strip_fence_collider")) breakCollider(event.block, event.player);
+    else if (event.brokenBlockPermutation.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(event.block, event.brokenBlockPermutation, false);
+    else alterSolidBlock(event.block, false);
+}
+
+/**
+ * Handles item use on events.
+ * @param {ItemUseOnBeforeEvent} event 
+ */
+function placementFilter(event) {
+    if (event.itemStack.hasTag("chroma_tech:light_strip")) event.cancel = !validLightStripPlacement(event.block, event.blockFace);
+    else if (event.itemStack.hasTag("chroma_tech:light_strip_door")) event.cancel = !validLightStripDoorPlacement(event.block);
+}
+
+/**
+ * Handles interaction events with custom blocks.
+ * @param {ItemStartUseOnAfterEvent} event 
+ */
+function interactHandler(event) {
+    if (event.block.hasTag("light_strip_door") && (!event.source.isSneaking || !event.itemStack)) interactLightStripDoor(event.block);
+    // Full block replacement function is currently unused since it isn't very good.
+    else if (event.block.hasTag("light_strip_fence_collider")) interactLightStripFenceCollider(event.block, event.itemStack, event.source);
+    else if (event.block.hasTag("light_strip_fence_gate") && (!event.source.isSneaking || event.itemStack)) interactLightStripFenceGate(event.block, event.source);
+    else if (event.block.hasTag("light_strip_trapdoor") && (!event.source.isSneaking || !event.itemStack)) interactLightStripTrapdoor(event.block);
+}

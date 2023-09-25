@@ -1,0 +1,14 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "chroma_tech:cyan_light_strip",
+            "category": "construction"
+        },
+        "components": {
+            "minecraft:block_placer": { "block": "chroma_tech:cyan_light_strip_block" },
+            "minecraft:icon": { "texture": "cyan_light_strip" },
+			"tag:chroma_tech:light_strip": {}
+        }
+    }
+}

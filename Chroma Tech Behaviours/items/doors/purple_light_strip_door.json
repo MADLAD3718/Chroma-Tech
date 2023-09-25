@@ -1,0 +1,15 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "chroma_tech:purple_light_strip_door",
+            "category": "construction"
+        },
+        "components": {
+            "minecraft:block_placer": { "block": "chroma_tech:purple_light_strip_door_block" },
+            "minecraft:creative_category": { "parent": "itemGroup.name.door" },
+            "minecraft:icon": { "texture": "purple_light_strip_door" },
+			"tag:chroma_tech:light_strip_door": {}
+        }
+    }
+}
