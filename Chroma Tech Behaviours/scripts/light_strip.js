@@ -87,7 +87,7 @@ export function alterLightStrip(block, permutation, placed) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
             block_nb.setPermutation(block_nb.permutation.withState("chroma_tech:extend_south", placed));
         }
-        if (equal(neg(basis.w), normal)) {
+        if (!block_n.isSolid && equal(neg(basis.w), normal)) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
             const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_nb.setPermutation(block_nb.permutation.withState("chroma_tech:edge_" + direction, placed));
@@ -100,7 +100,7 @@ export function alterLightStrip(block, permutation, placed) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
             block_sb.setPermutation(block_sb.permutation.withState("chroma_tech:extend_north", placed));
         }
-        if (equal(basis.w, normal)) {
+        if (!block_s.isSolid && equal(basis.w, normal)) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
             const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_sb.setPermutation(block_sb.permutation.withState("chroma_tech:edge_" + direction, placed));
@@ -113,7 +113,7 @@ export function alterLightStrip(block, permutation, placed) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
             block_eb.setPermutation(block_eb.permutation.withState("chroma_tech:extend_west", placed));
         }
-        if (equal(basis.u, normal)) {
+        if (!block_e.isSolid && equal(basis.u, normal)) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
             const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_eb.setPermutation(block_eb.permutation.withState("chroma_tech:edge_" + direction, placed));
@@ -126,7 +126,7 @@ export function alterLightStrip(block, permutation, placed) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
             block_wb.setPermutation(block_wb.permutation.withState("chroma_tech:extend_east", placed));
         }
-        if (equal(neg(basis.u), normal)) {
+        if (!block_w.isSolid && equal(neg(basis.u), normal)) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
             const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_wb.setPermutation(block_wb.permutation.withState("chroma_tech:edge_" + direction, placed));
@@ -214,6 +214,7 @@ export function popLightStrip(block) {
  * @returns {Boolean} `true` if the placement is valid.
  */
 export function validLightStripPlacement(block, blockface) {
+    if (!block.isSolid) return false;
     const {location, dimension} = block;
     const place_block = dimension.getBlock(add(location, blockFaceToDirection(blockface)));
     return !place_block.isLiquid;

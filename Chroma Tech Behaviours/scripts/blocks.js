@@ -63,7 +63,7 @@ export function alterSolidBlock(block, placed) {
     const block_e = block.east();
     if (block_e.hasTag("light_strip")) {
         const normal = blockFaceToDirection(block_e.permutation.getState("minecraft:block_face"));
-        if (!placed && equal(normal, Directions.West)) popLightStrip(block_e);
+        if (!placed && equal(normal, Directions.East)) popLightStrip(block_e);
         else if (Math.abs(normal.x) != 1) {
             const adjacent_block = dimension.getBlock(add(block_e.location, normal));
             if (adjacent_block.hasTag("light_strip")) {
@@ -86,7 +86,7 @@ export function alterSolidBlock(block, placed) {
     const block_w = block.west();
     if (block_w.hasTag("light_strip")) {
         const normal = blockFaceToDirection(block_w.permutation.getState("minecraft:block_face"));
-        if (!placed && equal(normal, Directions.East)) popLightStrip(block_w);
+        if (!placed && equal(normal, Directions.West)) popLightStrip(block_w);
         else if (Math.abs(normal.x) != 1) {
             const adjacent_block = dimension.getBlock(add(block_w.location, normal));
             if (adjacent_block.hasTag("light_strip")) {
