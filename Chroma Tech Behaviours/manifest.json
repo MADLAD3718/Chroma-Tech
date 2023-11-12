@@ -3,7 +3,7 @@
 	"metadata": { "authors": ["MADLAD3718"] },
 	"header": {
 		"name": "Chroma Tech 2.0",
-		"description": "Behaviours for Chroma Tech 2.0, designed by §6MADLAD3718§r.",
+		"description": "An addon implementing interconnecting LED light strips!\nRequired Experiments: §aHoliday Creator Features§r, §aBeta APIs§r.\nDesigned by §6MADLAD3718§r.",
 		"uuid": "c507b9fe-b382-49b1-9a5b-d6f9bd025f2c",
 		"version": [2,0,0],
 		"min_engine_version": [1,20,40]
