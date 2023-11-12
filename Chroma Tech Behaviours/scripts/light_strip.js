@@ -214,7 +214,6 @@ export function popLightStrip(block) {
  * @returns {Boolean} `true` if the placement is valid.
  */
 export function validLightStripPlacement(block, blockface) {
-    if (!block.isSolid) return false;
     const {location, dimension} = block;
     const place_block = dimension.getBlock(add(location, blockFaceToDirection(blockface)));
     return !place_block.isLiquid;
