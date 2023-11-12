@@ -1,9 +1,9 @@
 {
-	"format_version": "1.20.10",
+	"format_version": "1.20.40",
 	"minecraft:block": {
 		"description": {
 			"identifier": "chroma_tech:purple_light_strip_block",
-			"properties": {
+			"states": {
 				"chroma_tech:edge_north": [false, true],
 				"chroma_tech:edge_south": [false, true],
 				"chroma_tech:edge_east": [false, true],
@@ -19,51 +19,50 @@
 			},
 			"traits": {
 				"minecraft:placement_position": { "enabled_states": ["minecraft:block_face"] }
-			},
-			"is_experimental": true
+			}
 		},
 		"permutations": [
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'up'",
-				"components": { "minecraft:transformation": { "rotation": [0,180,0] }}
+				"condition": "q.block_state('minecraft:block_face') == 'up'",
+				"components": { "minecraft:transformation": { "rotation": [0,0,0] }}
 			},
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'down'",
-				"components": { "minecraft:transformation": { "rotation": [0,0,180] }}
+				"condition": "q.block_state('minecraft:block_face') == 'down'",
+				"components": { "minecraft:transformation": { "rotation": [180,0,0] }}
 			},
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'north'",
-				"components": { "minecraft:transformation": { "rotation": [90,180,0] }}
+				"condition": "q.block_state('minecraft:block_face') == 'north'",
+				"components": { "minecraft:transformation": { "rotation": [270,0,0] }}
 			},
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'south'",
+				"condition": "q.block_state('minecraft:block_face') == 'south'",
 				"components": { "minecraft:transformation": { "rotation": [90,0,180] }}
 			},
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'east'",
-				"components": { "minecraft:transformation": { "rotation": [180,0,90] }}
+				"condition": "q.block_state('minecraft:block_face') == 'east'",
+				"components": { "minecraft:transformation": { "rotation": [0,270,270] }}
 			},
 			{
-				"condition": "q.block_property('minecraft:block_face') == 'west'",
-				"components": { "minecraft:transformation": { "rotation": [180,0,270] }}
+				"condition": "q.block_state('minecraft:block_face') == 'west'",
+				"components": { "minecraft:transformation": { "rotation": [0,90,90] }}
 			}
 		],
 		"components": {
 			"minecraft:geometry": {
 				"identifier": "geometry.light_strip",
 				"bone_visibility": {
-					"north": "q.block_property('chroma_tech:edge_north') || q.block_property('chroma_tech:extend_north')",
-					"south": "q.block_property('chroma_tech:edge_south') || q.block_property('chroma_tech:extend_south')",
-					"east": "q.block_property('chroma_tech:edge_east') || q.block_property('chroma_tech:extend_east')",
-					"west": "q.block_property('chroma_tech:edge_west') || q.block_property('chroma_tech:extend_west')",
-					"edge_north": "q.block_property('chroma_tech:edge_north')",
-					"edge_south": "q.block_property('chroma_tech:edge_south')",
-					"edge_east": "q.block_property('chroma_tech:edge_east')",
-					"edge_west": "q.block_property('chroma_tech:edge_west')",
-					"extend_north": "q.block_property('chroma_tech:extend_north')",
-					"extend_south": "q.block_property('chroma_tech:extend_south')",
-					"extend_east": "q.block_property('chroma_tech:extend_east')",
-					"extend_west": "q.block_property('chroma_tech:extend_west')"
+					"north": "q.block_state('chroma_tech:edge_north') || q.block_state('chroma_tech:extend_north')",
+					"south": "q.block_state('chroma_tech:edge_south') || q.block_state('chroma_tech:extend_south')",
+					"east": "q.block_state('chroma_tech:edge_east') || q.block_state('chroma_tech:extend_east')",
+					"west": "q.block_state('chroma_tech:edge_west') || q.block_state('chroma_tech:extend_west')",
+					"edge_north": "q.block_state('chroma_tech:edge_north')",
+					"edge_south": "q.block_state('chroma_tech:edge_south')",
+					"edge_east": "q.block_state('chroma_tech:edge_east')",
+					"edge_west": "q.block_state('chroma_tech:edge_west')",
+					"extend_north": "q.block_state('chroma_tech:extend_north')",
+					"extend_south": "q.block_state('chroma_tech:extend_south')",
+					"extend_east": "q.block_state('chroma_tech:extend_east')",
+					"extend_west": "q.block_state('chroma_tech:extend_west')"
 				}
 			},
 			"minecraft:light_emission": 15,

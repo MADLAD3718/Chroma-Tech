@@ -1,9 +1,9 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.20.40",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:magenta_light_strip_trapdoor",
-            "properties": {
+            "states": {
                 "chroma_tech:open_t": [false, true]
             },
             "menu_category": {
@@ -13,12 +13,11 @@
             "traits": {
                 "minecraft:placement_direction": { "enabled_states": ["minecraft:cardinal_direction"] },
                 "minecraft:placement_position": { "enabled_states": ["minecraft:vertical_half"] }
-            },
-			"is_experimental": true
+            }
         },
         "permutations": [
             {
-                "condition": "q.block_property('chroma_tech:open_t')",
+                "condition": "q.block_state('chroma_tech:open_t')",
                 "components": {
                     "minecraft:geometry": "geometry.light_strip_trapdoor_open",
                     "minecraft:selection_box": {
@@ -32,7 +31,7 @@
                 }
             },
             {
-                "condition": "q.block_property('minecraft:vertical_half') == 'top' && !q.block_property('chroma_tech:open_t')",
+                "condition": "q.block_state('minecraft:vertical_half') == 'top' && !q.block_state('chroma_tech:open_t')",
                 "components": {
                     "minecraft:geometry": "geometry.light_strip_trapdoor_top",
                     "minecraft:selection_box": {
@@ -46,15 +45,15 @@
                 }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'south'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
                 "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'east'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
                 "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'west'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
                 "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
             }
         ],
@@ -77,14 +76,13 @@
 				}
 			},
             "minecraft:light_emission": 15,
-            "minecraft:unwalkable": true,
             "minecraft:light_dampening": 0,
             "minecraft:on_interact": { "event": "chroma_tech:toggle" },
             "tag:light_strip_trapdoor": {}
         },
         "events": {
             "chroma_tech:toggle": {
-                "set_block_property": { "chroma_tech:open_t": "!q.block_property('chroma_tech:open_t')" }
+                "set_block_state": { "chroma_tech:open_t": "!q.block_state('chroma_tech:open_t')" }
             }
         }
     }

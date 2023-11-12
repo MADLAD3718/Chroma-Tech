@@ -1,9 +1,9 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.20.40",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:lime_light_strip_fence_gate",
-            "properties": {
+            "states": {
                 "chroma_tech:opened": [0, 1, 2]
             },
             "menu_category": {
@@ -12,35 +12,31 @@
 			},
             "traits": {
                 "minecraft:placement_direction": { "enabled_states": ["minecraft:cardinal_direction"] }
-            },
-			"is_experimental": true
+            }
         },
         "permutations": [
             {
-                "condition": "q.block_property('chroma_tech:opened') != 0",
-                "components": {
-                    "minecraft:collision_box": false,
-                    "minecraft:unwalkable": false
-                }
+                "condition": "q.block_state('chroma_tech:opened') != 0",
+                "components": { "minecraft:collision_box": false }
             },
             {
-                "condition": "q.block_property('chroma_tech:opened') == 1",
+                "condition": "q.block_state('chroma_tech:opened') == 1",
                 "components": { "minecraft:geometry": "geometry.light_strip_fence_gate_open" }
             },
             {
-                "condition": "q.block_property('chroma_tech:opened') == 2",
+                "condition": "q.block_state('chroma_tech:opened') == 2",
                 "components": { "minecraft:geometry": "geometry.light_strip_fence_gate_open_alt" }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'south'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
                 "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'east'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
                 "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'west'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
                 "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
             }
         ],
@@ -63,7 +59,6 @@
 				}
 			},
             "minecraft:light_emission": 15,
-            "minecraft:unwalkable": true,
             "minecraft:light_dampening": 0,
             "minecraft:on_interact": { "event": "chroma_tech:interact" },
             "tag:light_strip_fence_gate": {}

@@ -1,9 +1,9 @@
 {
-    "format_version": "1.20.10",
+    "format_version": "1.20.40",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:light_strip_door_block",
-            "properties": {
+            "states": {
                 "chroma_tech:open": [false, true],
                 "chroma_tech:top": [false, true],
                 "chroma_tech:flipped": [false, true]
@@ -14,56 +14,55 @@
 			},
             "traits": {
                 "minecraft:placement_direction": { "enabled_states": ["minecraft:cardinal_direction"] }
-            },
-			"is_experimental": true
+            }
         },
         "permutations": [
             {
-                "condition": "q.block_property('chroma_tech:top')",
+                "condition": "q.block_state('chroma_tech:top')",
                 "components": { "minecraft:geometry": { "identifier": "geometry.light_strip_door_top" } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'south'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
                 "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'east'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
                 "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
             },
             {
-                "condition": "q.block_property('minecraft:cardinal_direction') == 'west'",
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
                 "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open')",
+                "condition": "q.block_state('chroma_tech:open')",
                 "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('minecraft:cardinal_direction') == 'south'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('minecraft:cardinal_direction') == 'south'",
                 "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('minecraft:cardinal_direction') == 'east'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('minecraft:cardinal_direction') == 'east'",
                 "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('minecraft:cardinal_direction') == 'west'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('minecraft:cardinal_direction') == 'west'",
                 "components": { "minecraft:transformation": { "rotation": [0, 0, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('chroma_tech:flipped')",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('chroma_tech:flipped')",
                 "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('chroma_tech:flipped') && q.block_property('minecraft:cardinal_direction') == 'south'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('chroma_tech:flipped') && q.block_state('minecraft:cardinal_direction') == 'south'",
                 "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('chroma_tech:flipped') && q.block_property('minecraft:cardinal_direction') == 'east'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('chroma_tech:flipped') && q.block_state('minecraft:cardinal_direction') == 'east'",
                 "components": { "minecraft:transformation": { "rotation": [0, 0, 0] } }
             },
             {
-                "condition": "q.block_property('chroma_tech:open') && q.block_property('chroma_tech:flipped') && q.block_property('minecraft:cardinal_direction') == 'west'",
+                "condition": "q.block_state('chroma_tech:open') && q.block_state('chroma_tech:flipped') && q.block_state('minecraft:cardinal_direction') == 'west'",
                 "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
             }
         ],

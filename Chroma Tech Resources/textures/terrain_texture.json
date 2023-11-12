@@ -18,6 +18,7 @@
 		"magenta": { "textures": "textures/blocks/colours/magenta" },
 		"pink": { "textures": "textures/blocks/colours/pink" },
 		"yellow": { "textures": "textures/blocks/colours/yellow" },
-		"white": { "textures": "textures/blocks/colours/white" }
+		"white": { "textures": "textures/blocks/colours/white" },
+		"test": { "textures": "textures/blocks/test" }
 	}
 }

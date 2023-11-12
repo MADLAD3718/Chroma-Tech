@@ -1,4 +1,4 @@
-import { world, PlayerPlaceBlockAfterEvent, PlayerPlaceBlockBeforeEvent, ItemUseOnBeforeEvent, ItemStartUseOnAfterEvent } from "@minecraft/server";
+import { world, PlayerPlaceBlockAfterEvent, PlayerBreakBlockAfterEvent, ItemUseOnBeforeEvent, ItemStartUseOnAfterEvent } from "@minecraft/server";
 import { alterLightStrip, validLightStripPlacement } from "./light_strip";
 import { breakLightStripDoor, interactLightStripDoor, placeLightStripDoor, validLightStripDoorPlacement } from "./light_strip_door";
 import { alterLightStripFence, breakCollider, interactLightStripFenceCollider } from "./light_strip_fence";
@@ -15,25 +15,25 @@ world.beforeEvents.itemUseOn.subscribe(placementFilter);
  * @remarks Updates any light strips surrounding a block place event.
  * @param {PlayerPlaceBlockAfterEvent} event
  */
-function placeBlock(event) {
-    if (event.block.hasTag("light_strip")) alterLightStrip(event.block, event.block.permutation, true);
-    else if (event.block.hasTag("light_strip_door")) placeLightStripDoor(event.block);
-    else if (event.block.hasTag("light_strip_fence")) alterLightStripFence(event.block, event.block.permutation, true);
-    else if (event.block.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(event.block, event.block.permutation, true);
-    else if (event.block.isSolid) alterSolidBlock(event.block, true);
+function placeBlock({block}) {
+    if (block.hasTag("light_strip")) alterLightStrip(block, block.permutation, true);
+    else if (block.hasTag("light_strip_door")) placeLightStripDoor(block);
+    else if (block.hasTag("light_strip_fence")) alterLightStripFence(block, block.permutation, true);
+    else if (block.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(block, block.permutation, true);
+    else if (block.isSolid) alterSolidBlock(block, true);
 }
 
 /**
  * @remarks Updates any light strips surrounding a light strip break event.
- * @param {PlayerPlaceBlockBeforeEvent} event
+ * @param {PlayerBreakBlockAfterEvent} event
  */
-function breakBlock(event) {
-    if (event.brokenBlockPermutation.hasTag("light_strip")) alterLightStrip(event.block, event.brokenBlockPermutation, false);
-    else if (event.brokenBlockPermutation.hasTag("light_strip_door")) breakLightStripDoor(event.block, event.brokenBlockPermutation);
-    else if (event.brokenBlockPermutation.hasTag("light_strip_fence")) alterLightStripFence(event.block, event.brokenBlockPermutation, false);
-    else if (event.brokenBlockPermutation.hasTag("light_strip_fence_collider")) breakCollider(event.block, event.player);
-    else if (event.brokenBlockPermutation.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(event.block, event.brokenBlockPermutation, false);
-    else alterSolidBlock(event.block, false);
+function breakBlock({block, brokenBlockPermutation, player}) {
+    if (brokenBlockPermutation.hasTag("light_strip")) alterLightStrip(block, brokenBlockPermutation, false);
+    else if (brokenBlockPermutation.hasTag("light_strip_door")) breakLightStripDoor(block, brokenBlockPermutation);
+    else if (brokenBlockPermutation.hasTag("light_strip_fence")) alterLightStripFence(block, brokenBlockPermutation, false);
+    else if (brokenBlockPermutation.hasTag("light_strip_fence_collider")) breakCollider(block, player);
+    else if (brokenBlockPermutation.hasTag("light_strip_fence_gate")) alterLightStripFenceGate(block, brokenBlockPermutation, false);
+    else alterSolidBlock(block, false);
 }
 
 /**

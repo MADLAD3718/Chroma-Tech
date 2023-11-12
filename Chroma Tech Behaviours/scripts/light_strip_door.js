@@ -1,5 +1,6 @@
-import { Block, BlockPermutation, ItemStack, Vector, world, BlockTypes } from "@minecraft/server";
-import { rotateByCardinalDirection } from "./util";
+import { Block, BlockPermutation, ItemStack, world, BlockTypes } from "@minecraft/server";
+import { add, blockFaceToDirection } from "./vectors";
+import { Basis } from "./basis";
 
 /**
  * Handles the placement of a new light strip door.
@@ -7,12 +8,11 @@ import { rotateByCardinalDirection } from "./util";
  */
 export function placeLightStripDoor(block) {
     const {dimension, location, permutation} = block;
-    const rEast = rotateByCardinalDirection(Vector.left, permutation.getState("minecraft:cardinal_direction"));
-    const block_e = dimension.getBlock(Vector.add(location, rEast));
+    const basis = new Basis(blockFaceToDirection(permutation.getState("minecraft:cardinal_direction")));
+    const block_e = dimension.getBlock(add(location, basis.u));
     if (block_e.hasTag("light_strip_door") && !block_e.permutation.getState("chroma_tech:flipped"))
         block.setPermutation(permutation.withState("chroma_tech:flipped", true));
-    const block_a = dimension.getBlock(Vector.add(location, Vector.up));
-    block_a.setPermutation(block.permutation.withState("chroma_tech:top", true));
+    block.above().setPermutation(block.permutation.withState("chroma_tech:top", true));
 }
 
 /**
@@ -21,8 +21,7 @@ export function placeLightStripDoor(block) {
  * @param {BlockPermutation} permutation
  */
 export function breakLightStripDoor(block, permutation) {
-    const {dimension, location} = block;
-    const other_block = dimension.getBlock(Vector.add(location, permutation.getState("chroma_tech:top") ? Vector.down : Vector.up));
+    const other_block = permutation.getState("chroma_tech:top") ? block.below() : block.above();
     other_block.setType(BlockTypes.get("air"));
 }
 
@@ -31,11 +30,11 @@ export function breakLightStripDoor(block, permutation) {
  * @param {Block} block 
  */
 export function popLightStripDoor(block) {
-    const {dimension, location} = block;
-    dimension.spawnItem(new ItemStack(block.typeId.replace("_block", "")), location);
+    const {dimension, location, typeId} = block;
+    world.playSound("dig.stone", location);
+    dimension.spawnItem(new ItemStack(typeId.replace("_block", "")), location);
     block.setType(BlockTypes.get("air"));
-    const block_a = dimension.getBlock(Vector.add(location, Vector.up));
-    block_a.setType(BlockTypes.get("air"));
+    block.above().setType(BlockTypes.get("air"));
 }
 
 /**
@@ -43,12 +42,12 @@ export function popLightStripDoor(block) {
  * @param {Block} block 
  */
 export function interactLightStripDoor(block) {
-    const {dimension, location, permutation} = block;
-    const state = permutation.getState("chroma_tech:open");
-    const other_block = dimension.getBlock(Vector.add(location, permutation.getState("chroma_tech:top") ? Vector.down : Vector.up));
-    block.setPermutation(permutation.withState("chroma_tech:open", !state));
-    other_block.setPermutation(other_block.permutation.withState("chroma_tech:open", !state));
-    if (!state) world.playSound("open.iron_door", location);
+    const {location, permutation} = block;
+    const open = permutation.getState("chroma_tech:open");
+    const other_block = permutation.getState("chroma_tech:top") ? block.below() : block.above();
+    block.setPermutation(permutation.withState("chroma_tech:open", !open));
+    other_block.setPermutation(other_block.permutation.withState("chroma_tech:open", !open));
+    if (!open) world.playSound("open.iron_door", location);
     else world.playSound("close.iron_door", location);
 }
 
@@ -57,7 +56,7 @@ export function interactLightStripDoor(block) {
  * @param {Block} block 
  */
 export function validLightStripDoorPlacement(block) {
-    const {dimension, location} = block;
-    const block_aa = dimension.getBlock(Vector.add(location, Vector.multiply(Vector.up, 2)));
-    return block_aa.isAir && !block.typeId.includes("fence");
+    const {location, dimension, typeId} = block;
+    if (location.y + 2 > dimension.heightRange.max) return false;
+    return block.above(2).isAir && !typeId.includes("fence");
 }
