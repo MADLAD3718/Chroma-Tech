@@ -38,7 +38,7 @@ export function alterLightStripFence(block, permutation, placed) {
     else if (placed) {
         if (block_s.isSolid) permutation = permutation.withState("chroma_tech:south", true);
         else if (block_s.hasTag("light_strip_fence_gate")) {
-            const direction = blockFaceToDirection(block_n.permutation.getState("minecraft:cardinal_direction"));
+            const direction = blockFaceToDirection(block_s.permutation.getState("minecraft:cardinal_direction"));
             if (Math.abs(direction.x) == 1)
                 permutation = permutation.withState("chroma_tech:south", true);
         }
