@@ -1,6 +1,6 @@
 import { Block, BlockPermutation, ItemStack, BlockTypes, Player, world } from "@minecraft/server";
 import { breakLightStripFenceGate, interactLightStripFenceGate } from "./light_strip_fence_gate";
-import { blockFaceToDirection, dot, toVec } from "./vectors";
+import { toDirection, dot, toVec } from "./vectors";
 import { decrementStack, inSurvival } from "./util";
 
 /**
@@ -22,7 +22,7 @@ export function alterLightStripFence(block, permutation, placed) {
     else if (placed) {
         if (block_n.isSolid) permutation = permutation.withState("chroma_tech:north", true);
         else if (block_n.hasTag("light_strip_fence_gate")) {
-            const direction = blockFaceToDirection(block_n.permutation.getState("minecraft:cardinal_direction"));
+            const direction = toDirection(block_n.permutation.getState("minecraft:cardinal_direction"));
             if (Math.abs(direction.x) == 1)
                 permutation = permutation.withState("chroma_tech:north", true);
         }
@@ -38,7 +38,7 @@ export function alterLightStripFence(block, permutation, placed) {
     else if (placed) {
         if (block_s.isSolid) permutation = permutation.withState("chroma_tech:south", true);
         else if (block_s.hasTag("light_strip_fence_gate")) {
-            const direction = blockFaceToDirection(block_s.permutation.getState("minecraft:cardinal_direction"));
+            const direction = toDirection(block_s.permutation.getState("minecraft:cardinal_direction"));
             if (Math.abs(direction.x) == 1)
                 permutation = permutation.withState("chroma_tech:south", true);
         }
@@ -54,7 +54,7 @@ export function alterLightStripFence(block, permutation, placed) {
     else if (placed) {
         if (block_e.isSolid) permutation = permutation.withState("chroma_tech:east", true);
         else if (block_e.hasTag("light_strip_fence_gate")) {
-            const direction = blockFaceToDirection(block_e.permutation.getState("minecraft:cardinal_direction"));
+            const direction = toDirection(block_e.permutation.getState("minecraft:cardinal_direction"));
             if (Math.abs(direction.z) == 1)
                 permutation = permutation.withState("chroma_tech:east", true);
         }
@@ -70,7 +70,7 @@ export function alterLightStripFence(block, permutation, placed) {
     else if (placed) {
         if (block_w.isSolid) permutation = permutation.withState("chroma_tech:west", true);
         else if (block_w.hasTag("light_strip_fence_gate")) {
-            const direction = blockFaceToDirection(block_w.permutation.getState("minecraft:cardinal_direction"));
+            const direction = toDirection(block_w.permutation.getState("minecraft:cardinal_direction"));
             if (Math.abs(direction.z) == 1)
                 permutation = permutation.withState("chroma_tech:west", true);
         }

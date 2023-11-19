@@ -1,7 +1,7 @@
 import { Block, BlockPermutation, ItemStack, BlockTypes, Player, Vector, world } from "@minecraft/server";
 import { dirToEastWestStr, dirToNorthSouthStr } from "./util";
 import { hasCenter, placeCollider } from "./light_strip_fence";
-import { add, blockFaceToDirection, directionToBlockFace, neg } from "./vectors";
+import { add, toDirection, toBlockFace, neg } from "./vectors";
 import { Basis } from "./basis";
 
 /** @typedef {{x: Number, y: Number, z: Number}} Vector3 */
@@ -14,16 +14,16 @@ import { Basis } from "./basis";
  */
 export function alterLightStripFenceGate(block, permutation, placed) {
     const {dimension, location} = block;
-    const basis = new Basis(blockFaceToDirection(permutation.getState("minecraft:cardinal_direction")));
+    const basis = new Basis(toDirection(permutation.getState("minecraft:cardinal_direction")));
     const block_e = dimension.getBlock(add(location, basis.u));
     const block_w = dimension.getBlock(add(location, neg(basis.u)));
     if (block_e.hasTag("light_strip_fence")) {
-        block_e.setPermutation(block_e.permutation.withState("chroma_tech:" + directionToBlockFace(neg(basis.u)), placed));
+        block_e.setPermutation(block_e.permutation.withState("chroma_tech:" + toBlockFace(neg(basis.u)), placed));
         block_e.setPermutation(block_e.permutation.withState("chroma_tech:center", hasCenter(block_e)));
         placeCollider(block_e);
     }
     if (block_w.hasTag("light_strip_fence")) {
-        block_w.setPermutation(block_w.permutation.withState("chroma_tech:" + directionToBlockFace(basis.u), placed));
+        block_w.setPermutation(block_w.permutation.withState("chroma_tech:" + toBlockFace(basis.u), placed));
         block_w.setPermutation(block_w.permutation.withState("chroma_tech:center", hasCenter(block_w)));
         placeCollider(block_w);
     }
@@ -40,7 +40,7 @@ export function alterLightStripFenceGate(block, permutation, placed) {
 export function interactLightStripFenceGate(block, player) {
     const {location} = block;
     let {permutation} = block;
-    const basis = new Basis(blockFaceToDirection(permutation.getState("minecraft:cardinal_direction")));
+    const basis = new Basis(toDirection(permutation.getState("minecraft:cardinal_direction")));
     const block_dir = permutation.getState("minecraft:cardinal_direction");
     const block_a = block.above();
     if (permutation.getState("chroma_tech:opened") == 0) {

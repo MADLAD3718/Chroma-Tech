@@ -1,5 +1,5 @@
 import { Block, BlockPermutation, BlockTypes, ItemStack, Dimension, world } from "@minecraft/server";
-import { add, blockFaceToDirection, directionToBlockFace, equal, neg } from "./vectors";
+import { add, toDirection, toBlockFace, equal, neg } from "./vectors";
 import { Basis, inverse } from "./basis";
 
 /**
@@ -11,7 +11,7 @@ import { Basis, inverse } from "./basis";
 export function alterLightStrip(block, permutation, placed) {
     const {dimension, location} = block;
     const blockface = permutation.getState("minecraft:block_face");
-    const basis = new Basis(blockFaceToDirection(blockface));
+    const basis = new Basis(toDirection(blockface));
     
     const block_n = dimension.getBlock(add(location, neg(basis.w)));
     const block_s = dimension.getBlock(add(location, basis.w));
@@ -29,113 +29,113 @@ export function alterLightStrip(block, permutation, placed) {
 
     // Adjacent & Corner Connections
     if (block_n.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_n.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_n.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
             block_n.setPermutation(block_n.permutation.withState("chroma_tech:edge_south", placed));
         }
         if (block_nb.isSolid && equal(basis.w, normal)) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_n.setPermutation(block_n.permutation.withState("chroma_tech:extend_" + direction, placed));
         }
     }
     
     if (block_s.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_s.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_s.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
             block_s.setPermutation(block_s.permutation.withState("chroma_tech:edge_north", placed));
         }
         if (block_sb.isSolid && equal(neg(basis.w), normal)) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_s.setPermutation(block_s.permutation.withState("chroma_tech:extend_" + direction, placed));
         }
     }
     
     if (block_e.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_e.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_e.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
             block_e.setPermutation(block_e.permutation.withState("chroma_tech:edge_west", placed));
         }
         if (block_eb.isSolid && equal(neg(basis.u), normal)) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_e.setPermutation(block_e.permutation.withState("chroma_tech:extend_" + direction, placed));
         }
     }
     
     if (block_w.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_w.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_w.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
             block_w.setPermutation(block_w.permutation.withState("chroma_tech:edge_east", placed));
         }
         if (block_wb.isSolid && equal(basis.u, normal)) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_w.setPermutation(block_w.permutation.withState("chroma_tech:extend_" + direction, placed));
         }
     }
 
     // Step Below & Edge Connections
     if (block_nb.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_nb.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_nb.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
             block_nb.setPermutation(block_nb.permutation.withState("chroma_tech:extend_south", placed));
         }
         if (!block_n.isSolid && equal(neg(basis.w), normal)) {
             permutation = permutation.withState("chroma_tech:edge_north", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_nb.setPermutation(block_nb.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
     }
 
     if (block_sb.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_sb.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_sb.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
             block_sb.setPermutation(block_sb.permutation.withState("chroma_tech:extend_north", placed));
         }
         if (!block_s.isSolid && equal(basis.w, normal)) {
             permutation = permutation.withState("chroma_tech:edge_south", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_sb.setPermutation(block_sb.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
     }
 
     if (block_eb.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_eb.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_eb.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
             block_eb.setPermutation(block_eb.permutation.withState("chroma_tech:extend_west", placed));
         }
         if (!block_e.isSolid && equal(basis.u, normal)) {
             permutation = permutation.withState("chroma_tech:edge_east", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_eb.setPermutation(block_eb.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
     }
 
     if (block_wb.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_wb.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_wb.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
             block_wb.setPermutation(block_wb.permutation.withState("chroma_tech:extend_east", placed));
         }
         if (!block_w.isSolid && equal(neg(basis.u), normal)) {
             permutation = permutation.withState("chroma_tech:edge_west", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(basis.v));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(basis.v));
             block_wb.setPermutation(block_wb.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
     }
 
     // Step Above Connections
     if (block_na.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_na.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_na.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:extend_north", placed);
             block_na.setPermutation(block_na.permutation.withState("chroma_tech:edge_south", placed));
@@ -143,7 +143,7 @@ export function alterLightStrip(block, permutation, placed) {
     }
 
     if (block_sa.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_sa.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_sa.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:extend_south", placed);
             block_sa.setPermutation(block_sa.permutation.withState("chroma_tech:edge_north", placed));
@@ -151,7 +151,7 @@ export function alterLightStrip(block, permutation, placed) {
     }
 
     if (block_ea.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_ea.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_ea.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:extend_east", placed);
             block_ea.setPermutation(block_ea.permutation.withState("chroma_tech:edge_west", placed));
@@ -159,7 +159,7 @@ export function alterLightStrip(block, permutation, placed) {
     }
 
     if (block_wa.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_wa.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_wa.permutation.getState("minecraft:block_face"));
         if (equal(basis.v, normal)) {
             permutation = permutation.withState("chroma_tech:extend_west", placed);
             block_wa.setPermutation(block_wa.permutation.withState("chroma_tech:edge_east", placed));
@@ -168,25 +168,25 @@ export function alterLightStrip(block, permutation, placed) {
 
     // Above Corner Connections
     if (block_a.hasTag("light_strip")) {
-        const normal = blockFaceToDirection(block_a.permutation.getState("minecraft:block_face"));
+        const normal = toDirection(block_a.permutation.getState("minecraft:block_face"));
         if (block_n.isSolid && equal(basis.w, normal)) {
             permutation = permutation.withState("chroma_tech:extend_north", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_a.setPermutation(block_a.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
         if (block_s.isSolid && equal(neg(basis.w), normal)) {
             permutation = permutation.withState("chroma_tech:extend_south", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_a.setPermutation(block_a.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
         if (block_e.isSolid && equal(neg(basis.u), normal)) {
             permutation = permutation.withState("chroma_tech:extend_east", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_a.setPermutation(block_a.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
         if (block_w.isSolid && equal(basis.u, normal)) {
             permutation = permutation.withState("chroma_tech:extend_west", placed);
-            const direction = directionToBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
+            const direction = toBlockFace(inverse(new Basis(normal)).localize(neg(basis.v)));
             block_a.setPermutation(block_a.permutation.withState("chroma_tech:edge_" + direction, placed));
         }
     }
@@ -215,6 +215,6 @@ export function popLightStrip(block) {
  */
 export function validLightStripPlacement(block, blockface) {
     const {location, dimension} = block;
-    const place_block = dimension.getBlock(add(location, blockFaceToDirection(blockface)));
+    const place_block = dimension.getBlock(add(location, toDirection(blockface)));
     return !place_block.isLiquid;
 }

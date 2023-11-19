@@ -24,7 +24,7 @@ export const Directions = {
  * @param {String} blockface 
  * @returns {Vector3}
  */
-export function blockFaceToDirection(blockface) {
+export function toDirection(blockface) {
     switch (blockface.toLowerCase()) {
         case "up": return Directions.Up;
         case "down": return Directions.Down;
@@ -40,7 +40,7 @@ export function blockFaceToDirection(blockface) {
  * @param {Vector3} direction 
  * @returns {String}
  */
-export function directionToBlockFace(direction) {
+export function toBlockFace(direction) {
     if (equal(direction, Directions.Up)) return "up";
     if (equal(direction, Directions.Down)) return "down";
     if (equal(direction, Directions.North)) return "north";

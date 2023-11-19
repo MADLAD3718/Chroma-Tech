@@ -1,5 +1,5 @@
 import { Block, BlockPermutation, ItemStack, world, BlockTypes } from "@minecraft/server";
-import { add, blockFaceToDirection } from "./vectors";
+import { add, toDirection } from "./vectors";
 import { Basis } from "./basis";
 
 /**
@@ -8,7 +8,7 @@ import { Basis } from "./basis";
  */
 export function placeLightStripDoor(block) {
     const {dimension, location, permutation} = block;
-    const basis = new Basis(blockFaceToDirection(permutation.getState("minecraft:cardinal_direction")));
+    const basis = new Basis(toDirection(permutation.getState("minecraft:cardinal_direction")));
     const block_e = dimension.getBlock(add(location, basis.u));
     if (block_e.hasTag("light_strip_door") && !block_e.permutation.getState("chroma_tech:flipped"))
         block.setPermutation(permutation.withState("chroma_tech:flipped", true));
