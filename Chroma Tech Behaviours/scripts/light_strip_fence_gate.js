@@ -1,7 +1,7 @@
-import { Block, BlockPermutation, ItemStack, BlockTypes, Player, Vector, world } from "@minecraft/server";
+import { Block, BlockPermutation, ItemStack, Player, world } from "@minecraft/server";
 import { dirToEastWestStr, dirToNorthSouthStr } from "./util";
 import { hasCenter, placeCollider } from "./light_strip_fence";
-import { add, toDirection, toBlockFace, neg } from "./vectors";
+import { add, toDirection, toBlockFace, neg, Directions } from "./vectors";
 import { Basis } from "./basis";
 
 /** @typedef {{x: Number, y: Number, z: Number}} Vector3 */
@@ -27,9 +27,9 @@ export function alterLightStripFenceGate(block, permutation, placed) {
         block_w.setPermutation(block_w.permutation.withState("chroma_tech:center", hasCenter(block_w)));
         placeCollider(block_w);
     }
-    const block_a = dimension.getBlock(Vector.add(location, Vector.up));
+    const block_a = dimension.getBlock(add(location, Directions.Up));
     if (placed) { if (block_a.isAir) placeColliderOnGate(block_a, basis.v); }
-    else if (block_a.hasTag("light_strip_fence_collider")) block_a.setType(BlockTypes.get("air"));
+    else if (block_a.hasTag("light_strip_fence_collider")) block_a.setType("minecraft:air");
 }
 
 /**
@@ -48,7 +48,7 @@ export function interactLightStripFenceGate(block, player) {
         if (Math.abs(basis.v.z) == 1) player_dir = dirToNorthSouthStr(player.getViewDirection());
         else player_dir = dirToEastWestStr(player.getViewDirection());
         permutation = permutation.withState("chroma_tech:opened", block_dir == player_dir ? 2 : 1);
-        if (block_a.hasTag("light_strip_fence_collider")) block_a.setType(BlockTypes.get("air"));
+        if (block_a.hasTag("light_strip_fence_collider")) block_a.setType("minecraft:air");
         world.playSound("open.iron_trapdoor", location);
     }
     else {
@@ -84,5 +84,5 @@ export function breakLightStripFenceGate(block, inSurvival) {
     const {dimension, location, permutation} = block;
     alterLightStripFenceGate(block, permutation, false);
     if (inSurvival) dimension.spawnItem(new ItemStack(block.typeId), location);
-    block.setType(BlockTypes.get("air"));
+    block.setType("minecraft:air");
 }

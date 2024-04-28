@@ -1,4 +1,4 @@
-import { Block, BlockPermutation, ItemStack, world, BlockTypes } from "@minecraft/server";
+import { Block, BlockPermutation, ItemStack, world } from "@minecraft/server";
 import { add, toDirection } from "./vectors";
 import { Basis } from "./basis";
 
@@ -22,7 +22,7 @@ export function placeLightStripDoor(block) {
  */
 export function breakLightStripDoor(block, permutation) {
     const other_block = permutation.getState("chroma_tech:top") ? block.below() : block.above();
-    other_block.setType(BlockTypes.get("air"));
+    other_block.setType("minecraft:air");
 }
 
 /**
@@ -33,8 +33,8 @@ export function popLightStripDoor(block) {
     const {dimension, location, typeId} = block;
     world.playSound("dig.stone", location);
     dimension.spawnItem(new ItemStack(typeId.replace("_block", "")), location);
-    block.setType(BlockTypes.get("air"));
-    block.above().setType(BlockTypes.get("air"));
+    block.setType("minecraft:air");
+    block.above().setType("minecraft:air");
 }
 
 /**

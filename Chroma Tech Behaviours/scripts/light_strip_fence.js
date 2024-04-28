@@ -1,4 +1,4 @@
-import { Block, BlockPermutation, ItemStack, BlockTypes, Player, world } from "@minecraft/server";
+import { Block, BlockPermutation, ItemStack, Player, world } from "@minecraft/server";
 import { breakLightStripFenceGate, interactLightStripFenceGate } from "./light_strip_fence_gate";
 import { toDirection, dot, toVec } from "./vectors";
 import { decrementStack, inSurvival } from "./util";
@@ -104,7 +104,7 @@ export function alterLightStripFence(block, permutation, placed) {
             block.setPermutation(permutation);
             if (block_a.isAir || block_a.hasTag("light_strip_fence_collider")) placeCollider(block, permutation);
         }
-        else if (block_a.hasTag("light_strip_fence_collider")) block_a.setType(BlockTypes.get("air"));
+        else if (block_a.hasTag("light_strip_fence_collider")) block_a.setType("minecraft:air");
     }
 }
 
@@ -173,7 +173,7 @@ function breakLightStripFence(block, inSurvival) {
     const {dimension, location, permutation} = block;
     alterLightStripFence(block, permutation, false);
     if (inSurvival) dimension.spawnItem(new ItemStack(block.typeId), location);
-    block.setType(BlockTypes.get("air"));
+    block.setType("minecraft:air");
     const block_b = block.below();
     if (block_b.hasTag("light_strip_fence") || block_b.hasTag("light_strip_fence_gate"))
         placeCollider(block_b);

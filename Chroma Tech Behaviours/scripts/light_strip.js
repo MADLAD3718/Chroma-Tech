@@ -1,4 +1,4 @@
-import { Block, BlockPermutation, BlockTypes, ItemStack, Dimension, world } from "@minecraft/server";
+import { Block, BlockPermutation, ItemStack, Dimension, world } from "@minecraft/server";
 import { add, toDirection, toBlockFace, equal, neg } from "./vectors";
 import { Basis, inverse } from "./basis";
 
@@ -204,7 +204,7 @@ export function popLightStrip(block) {
     alterLightStrip(block, permutation, false);
     world.playSound("dig.stone", location);
     dimension.spawnItem(new ItemStack(typeId.replace("_block", "")), location);
-    block.setType(BlockTypes.get("air"));
+    block.setType("minecraft:air");
 }
 
 /**
