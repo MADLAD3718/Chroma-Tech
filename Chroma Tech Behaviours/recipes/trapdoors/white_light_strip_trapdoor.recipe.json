@@ -1,0 +1,20 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "chroma_tech:white_light_strip_trapdoor"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"##",
+			"##"
+		],
+		"key": {
+			"#": { "item": "chroma_tech:white_light_strip" }
+		},
+		"result": {
+			"item": "chroma_tech:white_light_strip_trapdoor",
+			"count": 2
+		}
+	}
+}

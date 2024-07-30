@@ -1,0 +1,17 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "chroma_tech:pink_light_strip_fence_gate"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [ "##" ],
+		"key": {
+			"#": { "item": "chroma_tech:pink_light_strip_fence" }
+		},
+		"result": {
+			"item": "chroma_tech:pink_light_strip_fence_gate",
+			"count": 2
+		}
+	}
+}

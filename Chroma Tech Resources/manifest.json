@@ -2,11 +2,11 @@
 	"format_version": 2,
 	"metadata": { "authors": ["MADLAD3718"] },
 	"header": {
-		"name": "Chroma Tech 2.0",
-		"description": "An addon implementing interconnecting LED light strips!\nRequired Experiments: §aHoliday Creator Features§r, §aBeta APIs§r.\nDesigned by §6MADLAD3718§r.",
+		"name": "Chroma Tech",
+		"description": "An addon implementing interconnecting LED light strips!\nDesigned by §6MADLAD3718§r.",
 		"uuid": "f7d4c41f-903b-4418-8c33-04590a53eb80",
 		"version": [2,0,0],
-		"min_engine_version": [1,20,40]
+		"min_engine_version": [1,21,20]
 	},
 	"modules": [{
 		"type": "resources",
