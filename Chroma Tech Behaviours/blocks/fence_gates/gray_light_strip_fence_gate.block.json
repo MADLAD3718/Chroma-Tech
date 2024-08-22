@@ -1,0 +1,93 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:block": {
+        "description": {
+            "identifier": "chroma_tech:gray_light_strip_fence_gate",
+            "menu_category": {
+                "category": "construction",
+                "group": "itemGroup.name.fenceGate"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": ["minecraft:cardinal_direction"]
+                }
+            },
+            "states": {
+                "onyx:open": [0, 1, 2]
+            }
+        },
+        "components": {
+            "minecraft:custom_components": ["onyx:fence_gate", "onyx:prevent_underwater_placement"],
+            "tag:fence_gate_connect": {},
+            "minecraft:geometry": "geometry.light_strip_fence_gate",
+            "minecraft:transformation": {
+				"translation": [0, 0.3125, 0]
+			},
+            "minecraft:selection_box": {
+                "origin": [-8.0, 0.0, -2.0],
+                "size": [16.0, 11.0, 4.0]
+            },
+            "minecraft:collision_box": {
+                "origin": [-8.0, 0.0, -2.0],
+                "size": [16.0, 16.0, 4.0]
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:light_emission": 15,
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "gray",
+                    "render_method": "opaque",
+                    "ambient_occlusion": false,
+                    "face_dimming": false
+                }
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('onyx:open') != 0",
+                "components": {
+                    "minecraft:collision_box": false
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:open') == 1",
+                "components": {
+                    "minecraft:geometry": "geometry.light_strip_fence_gate_open"
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:open') == 2",
+                "components": {
+                    "minecraft:geometry": "geometry.light_strip_fence_gate_open_alt"
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [0, 180, 0],
+                        "translation": [0, 0.3125, 0]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [0, 270, 0],
+                        "translation": [0, 0.3125, 0]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [0, 90, 0],
+                        "translation": [0, 0.3125, 0]
+                    }
+                }
+            }
+        ]
+    }
+}

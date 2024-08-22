@@ -1,0 +1,21 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "chroma_tech:yellow_light_strip_door",
+            "menu_category": {
+                "category": "construction",
+                "group": "itemGroup.name.door"
+            }
+        },
+        "components": {
+            "minecraft:display_name": { "value": "item.chroma_tech:yellow_light_strip_door.name" },
+            "minecraft:block_placer": { "block": "chroma_tech:yellow_light_strip_door" },
+            "minecraft:icon": {
+                "textures": {
+                    "default": "yellow_light_strip_door"
+                }
+            }
+        }
+    }
+}

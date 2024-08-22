@@ -1,0 +1,101 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:block": {
+        "description": {
+            "identifier": "chroma_tech:white_light_strip_door",
+            "menu_category": {
+                "category": "none",
+                "is_hidden_in_commands": true
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": ["minecraft:cardinal_direction"]
+                }
+            },
+            "states": {
+                "onyx:top": [false, true],
+                "onyx:open": [false, true],
+                "onyx:flipped": [false, true]
+            }
+        },
+        "components": {
+            "minecraft:custom_components": ["onyx:door", "onyx:prevent_underwater_placement"],
+            "tag:door": {},
+            "minecraft:geometry": "geometry.light_strip_door",
+            "minecraft:selection_box": {
+                "origin": [-8.0, 0.0, 6.0],
+                "size": [16.0, 16.0, 2.0]
+            },
+            "minecraft:collision_box": {
+                "origin": [-8.0, 0.0, 6.0],
+                "size": [16.0, 16.0, 2.0]
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:light_emission": 15,
+            "minecraft:loot": "loot_tables/blocks/doors/white_light_strip_door.loot.json",
+            "minecraft:placement_filter": { "conditions": [ { "allowed_faces": ["up"] } ] },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "white",
+                    "render_method": "opaque",
+                    "ambient_occlusion": false,
+                    "face_dimming": false
+                }
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('onyx:top')",
+                "components": { "minecraft:geometry": "geometry.light_strip_door_top" }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+                "components": { "minecraft:transformation": { "rotation": [0, 0, 0] } }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'north'",
+                "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": { "minecraft:transformation": { "rotation": [0, 0, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:flipped') && q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'north'",
+                "components": { "minecraft:transformation": { "rotation": [0, 90, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:flipped') && q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": { "minecraft:transformation": { "rotation": [0, 270, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:flipped') && q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": { "minecraft:transformation": { "rotation": [0, 0, 0] } }
+            },
+            {
+                "condition": "q.block_state('onyx:flipped') && q.block_state('onyx:open') && q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": { "minecraft:transformation": { "rotation": [0, 180, 0] } }
+            }
+        ]
+    }
+}

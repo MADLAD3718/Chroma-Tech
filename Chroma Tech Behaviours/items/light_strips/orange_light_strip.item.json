@@ -1,0 +1,18 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "description": {
+            "identifier": "chroma_tech:orange_light_strip",
+            "menu_category": { "category": "construction" }
+        },
+        "components": {
+            "minecraft:display_name": { "value": "item.chroma_tech:orange_light_strip.name" },
+            "minecraft:block_placer": { "block": "chroma_tech:orange_light_strip" },
+            "minecraft:icon": {
+                "textures": {
+                    "default": "orange_light_strip"
+                }
+            }
+        }
+    }
+}

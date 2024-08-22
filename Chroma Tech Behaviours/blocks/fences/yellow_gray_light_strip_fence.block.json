@@ -1,0 +1,262 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:block": {
+        "description": {
+            "identifier": "chroma_tech:yellow_light_strip_fence",
+            "menu_category": {
+                "category": "construction",
+                "group": "itemGroup.name.fence"
+            },
+            "states": {
+                "onyx:north":     [false, true],
+                "onyx:south":     [false, true],
+                "onyx:east":      [false, true],
+                "onyx:west":      [false, true],
+                "onyx:above":     [false, true],
+                "onyx:below":     [false, true],
+                "onyx:alternate": [false, true]
+            }
+        },
+        "components": {
+            "minecraft:custom_components": ["onyx:fence", "onyx:prevent_underwater_placement"],
+            "tag:fence_connect": {},
+            "minecraft:geometry": {
+                "identifier": "geometry.light_strip_fence",
+                "bone_visibility": {
+                    "center": "q.block_state('onyx:above') || q.block_state('onyx:below') || !((q.block_state('onyx:north') && q.block_state('onyx:south') && !q.block_state('onyx:east') && !q.block_state('onyx:west')) || (!q.block_state('onyx:north') && !q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west')))",
+                    "north": "q.block_state('onyx:north')",
+                    "south": "q.block_state('onyx:south')",
+                    "east": "q.block_state('onyx:east')",
+                    "west": "q.block_state('onyx:west')"
+                }
+            },
+            "minecraft:transformation": {
+                "translation": [0, 0.3125, 0]
+            },
+            "minecraft:selection_box": {
+                "origin": [-2.0, 0.0, -2.0],
+                "size": [4.0, 11.0, 4.0]
+            },
+            "minecraft:collision_box": {
+                "origin": [-2.0, 0.0, -2.0],
+                "size": [4.0, 16.0, 4.0]
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:light_emission": 15,
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "yellow",
+                    "render_method": "opaque",
+                    "ambient_occlusion": false,
+                    "face_dimming": false
+                }
+            }
+        },
+        "permutations": [
+            { // Single Piece
+                "condition": "q.block_state('onyx:north')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:south')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:east')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 11, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:west')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 11, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            { // Double Accross
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 11, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west')",
+                "components": {
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 11, 4]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            { // Corner
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:east')",
+                "components": { // North Collision
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [10, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:east') && q.block_state('onyx:south')",
+                "components": { // South Collision
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [10, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [4, 16, 10]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:south') && q.block_state('onyx:west')",
+                "components": { // West Collision
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:west') && q.block_state('onyx:north')",
+                "components": { // West Collision
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [10, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -2],
+                        "size": [10, 16, 4]
+                    }
+                }
+            },
+            { // Triple
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east')",
+                "components": { // N + S
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [10, 11, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:west')",
+                "components": { //  N + S
+                    "minecraft:selection_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [10, 11, 16]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:north')",
+                "components": { // E + W
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -8],
+                        "size": [16, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:south')",
+                "components": { // E + W
+                    "minecraft:selection_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 11, 10]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            },
+            { // All
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west')",
+                "components": { // N + S
+                    "minecraft:selection_box": {
+                        "origin": [-8.0, 0.0, -8.0],
+                        "size": [16.0, 11.0, 16.0]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [-2, 0, -8],
+                        "size": [4, 16, 16]
+                    }
+                }
+            },
+            { // Alternate ALL
+                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:alternate')",
+                "components": { // E + W
+                    "minecraft:collision_box": {
+                        "origin": [-8, 0, -2],
+                        "size": [16, 16, 4]
+                    }
+                }
+            }
+        ]
+    }
+}
