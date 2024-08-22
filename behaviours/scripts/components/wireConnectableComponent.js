@@ -1,7 +1,6 @@
 import { Block, BlockPermutation, system, world } from "@minecraft/server";
-import { equal, neg, strToDir, dirToStr, stringifyVec } from "../extensions/vectors";
-import { adjugate, buildTNB, inverse, Matrix3, transpose } from "../extensions/matrices";
-import { mmul } from "../extensions/matrices";
+import { equal, neg, strToDir, dirToStr } from "../extensions/vectors";
+import { buildTNB, transpose } from "../extensions/matrices";
 
 /** @type {import("@minecraft/server").BlockCustomComponent} */
 export const wireConnectableComponent = {

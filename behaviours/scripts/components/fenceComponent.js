@@ -7,6 +7,8 @@ export const fenceComponent = {
     onPlayerDestroy: event => alterFenceBlock(event.block, event.destroyedBlockPermutation, false)
 }
 
+const light_strip_tag = "wire_connect_light_strip";
+
 /**
  * @param {Block} block 
  * @param {BlockPermutation} permutation 
@@ -20,7 +22,7 @@ function alterFenceBlock(block, permutation, placed) {
     const block_a = block.above();
     const block_b = block.below();
 
-    if (!block_n.isAir && !block_n.isLiquid) {
+    if (!block_n.hasTag(light_strip_tag) && !block_n.isAir && !block_n.isLiquid) {
         if (block_n.hasTag("fence_connect"))
             block_n.setPermutation(block_n.permutation.withState("onyx:south", placed));
         if (block_n.hasTag("fence_gate_connect")) {
@@ -30,7 +32,7 @@ function alterFenceBlock(block, permutation, placed) {
         }
         else permutation = permutation.withState("onyx:north", placed);
     }
-    if (!block_s.isAir && !block_s.isLiquid) {
+    if (!block_s.hasTag(light_strip_tag) && !block_s.isAir && !block_s.isLiquid) {
         if (block_s.hasTag("fence_connect"))
             block_s.setPermutation(block_s.permutation.withState("onyx:north", placed));
         if (block_s.hasTag("fence_gate_connect")) {
@@ -40,7 +42,7 @@ function alterFenceBlock(block, permutation, placed) {
         }
         else permutation = permutation.withState("onyx:south", placed);
     }
-    if (!block_e.isAir && !block_e.isLiquid) {
+    if (!block_e.hasTag(light_strip_tag) && !block_e.isAir && !block_e.isLiquid) {
         if (block_e.hasTag("fence_connect"))
             block_e.setPermutation(block_e.permutation.withState("onyx:west", placed));
         if (block_e.hasTag("fence_gate_connect")) {
@@ -50,7 +52,7 @@ function alterFenceBlock(block, permutation, placed) {
         }
         else permutation = permutation.withState("onyx:east", placed);
     }
-    if (!block_w.isAir && !block_w.isLiquid) {
+    if (!block_w.hasTag(light_strip_tag) && !block_w.isAir && !block_w.isLiquid) {
         if (block_w.hasTag("fence_connect"))
             block_w.setPermutation(block_w.permutation.withState("onyx:east", placed));
         if (block_w.hasTag("fence_gate_connect")) {
@@ -60,11 +62,11 @@ function alterFenceBlock(block, permutation, placed) {
         }
         else permutation = permutation.withState("onyx:west", placed);
     }
-    if (block_a.hasTag("fence_connect")) {
+    if (!block_a.hasTag(light_strip_tag) && block_a.hasTag("fence_connect")) {
         permutation = permutation.withState("onyx:above", placed);
         block_a.setPermutation(block_a.permutation.withState("onyx:below", placed));
     }
-    if (block_b.hasTag("fence_connect")) {
+    if (!block_b.hasTag(light_strip_tag) && block_b.hasTag("fence_connect")) {
         permutation = permutation.withState("onyx:below", placed);
         block_b.setPermutation(block_b.permutation.withState("onyx:above", placed));
     }

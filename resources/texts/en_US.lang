@@ -1,5 +1,7 @@
 item.chroma_tech:chroma_light_strip.name=Chroma Lightstrip
+tile.chroma_tech:chroma_light_strip.name=Chroma Lightstrip
 item.chroma_tech:chroma_light_strip_door.name=Chroma Lightstrip Door
+tile.chroma_tech:chroma_light_strip_door.name=Chroma Lightstrip Door
 tile.chroma_tech:chroma_light_strip_trapdoor.name=Chroma Lightstrip Trapdoor
 tile.chroma_tech:chroma_light_strip_fence.name=Chroma Lightstrip Fence
 tile.chroma_tech:chroma_light_strip_fence_gate.name=Chroma Lightstrip Fence Gate
