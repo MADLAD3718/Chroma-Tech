@@ -2,4 +2,4 @@
 *.mcaddon
 node_modules
 .vscode
-*.map
+behaviours/scripts

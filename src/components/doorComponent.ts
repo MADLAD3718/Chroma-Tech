@@ -10,7 +10,7 @@ export const doorComponent: BlockCustomComponent = {
         const tnb = Mat3.buildTNB(normal);
         if (block.offset(Mat3.c1(tnb))?.typeId.endsWith("door"))
             block.setPermutation(permutation.withState("chroma_tech:flipped", true));
-        block.above()?.setPermutation(permutation.withState("chroma_tech:top", true));
+        block.above()?.setPermutation(block.permutation.withState("chroma_tech:top", true));
     },
 
     onPlayerInteract: event => {
@@ -18,8 +18,8 @@ export const doorComponent: BlockCustomComponent = {
         const open = !permutation.getState("chroma_tech:open")
         block.setPermutation(permutation.withState("chroma_tech:open", open));
         if (permutation.getState("chroma_tech:top"))
-            block.below()?.setPermutation(permutation.withState("chroma_tech:top", false));
-        else block.above()?.setPermutation(permutation.withState("chroma_tech:top", true));
+            block.below()?.setPermutation(block.permutation.withState("chroma_tech:top", false));
+        else block.above()?.setPermutation(block.permutation.withState("chroma_tech:top", true));
         dimension.playSound(open ? "open.iron_door" : "close.iron_door", block.center());
     },
 
