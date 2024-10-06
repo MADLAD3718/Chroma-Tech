@@ -19,32 +19,13 @@ var Vec3;
     return typeof v === "object" && "x" in v && "y" in v && "z" in v;
   }
   Vec32.isVector3 = isVector3;
-  function isDirection(x) {
-    return typeof x === "string";
-  }
   function from(x, y, z) {
-    if (isDirection(x)) {
-      switch (x) {
-        case Direction.Up:
-          return Vec32.Up;
-        case Direction.Down:
-          return Vec32.Down;
-        case Direction.North:
-          return Vec32.North;
-        case Direction.South:
-          return Vec32.South;
-        case Direction.East:
-          return Vec32.East;
-        case Direction.West:
-          return Vec32.West;
-      }
-    }
     if (typeof x === "number") return {
       x,
       y: y ?? x,
       z: z ?? x
     };
-    if (Array.isArray(x)) return {
+    if (Array.isArray(x) && x.length >= 3) return {
       x: x[0],
       y: x[1],
       z: x[2]
@@ -52,6 +33,45 @@ var Vec3;
     throw new Error("Invalid input values for vector construction.");
   }
   Vec32.from = from;
+  function fromBlockFace(face) {
+    switch (face) {
+      case "up":
+        return Vec32.Up;
+      case "down":
+        return Vec32.Down;
+      case "north":
+        return Vec32.North;
+      case "south":
+        return Vec32.South;
+      case "east":
+        return Vec32.East;
+      case "west":
+        return Vec32.West;
+    }
+    throw new Error("Argument was not of type 'block_face' or 'cardinal_direction'.");
+  }
+  Vec32.fromBlockFace = fromBlockFace;
+  function toBlockFace(v) {
+    return toDirection(v).toLowerCase();
+  }
+  Vec32.toBlockFace = toBlockFace;
+  function fromDirection(d) {
+    switch (d) {
+      case Direction.Up:
+        return Vec32.Up;
+      case Direction.Down:
+        return Vec32.Down;
+      case Direction.North:
+        return Vec32.North;
+      case Direction.South:
+        return Vec32.South;
+      case Direction.East:
+        return Vec32.East;
+      case Direction.West:
+        return Vec32.West;
+    }
+  }
+  Vec32.fromDirection = fromDirection;
   function toDirection(v) {
     const a = abs(v), s = sign(v);
     const max2 = Math.max(a.x, a.y, a.z);
@@ -218,8 +238,8 @@ var Vec3;
     };
     else return {
       x: v.x / m,
-      y: v.x / m,
-      z: v.x / m
+      y: v.y / m,
+      z: v.z / m
     };
   }
   Vec32.div = div;
@@ -491,7 +511,18 @@ var Mat3;
   }
   Mat32.isMatrix3 = isMatrix3;
   function from(u, v, w) {
-    return {
+    if (Array.isArray(u) && u.length >= 9) return {
+      ux: u[0],
+      vx: u[1],
+      wx: u[2],
+      uy: u[3],
+      vy: u[4],
+      wy: u[5],
+      uz: u[6],
+      vz: u[7],
+      wz: u[8]
+    };
+    if (Vec3.isVector3(u) && v && w) return {
       ux: u.x,
       vx: v.x,
       wx: w.x,
@@ -502,86 +533,73 @@ var Mat3;
       vz: v.z,
       wz: w.z
     };
+    throw new Error("Invalid input values for vector construction.");
   }
   Mat32.from = from;
-  function col1(m) {
+  function c1(m) {
     return {
       x: m.ux,
       y: m.uy,
       z: m.uz
     };
   }
-  Mat32.col1 = col1;
-  function col2(m) {
+  Mat32.c1 = c1;
+  function c2(m) {
     return {
       x: m.vx,
       y: m.vy,
       z: m.vz
     };
   }
-  Mat32.col2 = col2;
-  function col3(m) {
+  Mat32.c2 = c2;
+  function c3(m) {
     return {
       x: m.wx,
       y: m.wy,
       z: m.wz
     };
   }
-  Mat32.col3 = col3;
-  function row1(m) {
+  Mat32.c3 = c3;
+  function r1(m) {
     return {
       x: m.ux,
       y: m.vx,
       z: m.wx
     };
   }
-  Mat32.row1 = row1;
-  function row2(m) {
+  Mat32.r1 = r1;
+  function r2(m) {
     return {
       x: m.uy,
       y: m.vy,
       z: m.wy
     };
   }
-  Mat32.row2 = row2;
-  function row3(m) {
+  Mat32.r2 = r2;
+  function r3(m) {
     return {
       x: m.uz,
       y: m.vz,
       z: m.wz
     };
   }
-  Mat32.row3 = row3;
-  function transpose(m) {
-    return {
-      ux: m.ux,
-      vx: m.uy,
-      wx: m.uz,
-      uy: m.vx,
-      vy: m.vy,
-      wy: m.vz,
-      uz: m.wx,
-      vz: m.wy,
-      wz: m.wz
-    };
-  }
-  Mat32.transpose = transpose;
+  Mat32.r3 = r3;
   function mul(m, t) {
     if (isMatrix3(t)) return {
-      ux: Vec3.dot(row1(m), col1(t)),
-      vx: Vec3.dot(row1(m), col2(t)),
-      wx: Vec3.dot(row1(m), col3(t)),
-      uy: Vec3.dot(row2(m), col1(t)),
-      vy: Vec3.dot(row2(m), col2(t)),
-      wy: Vec3.dot(row2(m), col3(t)),
-      uz: Vec3.dot(row3(m), col1(t)),
-      vz: Vec3.dot(row3(m), col2(t)),
-      wz: Vec3.dot(row3(m), col3(t))
+      ux: Vec3.dot(r1(m), c1(t)),
+      vx: Vec3.dot(r1(m), c2(t)),
+      wx: Vec3.dot(r1(m), c3(t)),
+      uy: Vec3.dot(r2(m), c1(t)),
+      vy: Vec3.dot(r2(m), c2(t)),
+      wy: Vec3.dot(r2(m), c3(t)),
+      uz: Vec3.dot(r3(m), c1(t)),
+      vz: Vec3.dot(r3(m), c2(t)),
+      wz: Vec3.dot(r3(m), c3(t))
     };
     else if (Vec3.isVector3(t)) return {
-      x: Vec3.dot(row1(m), t),
-      y: Vec3.dot(row2(m), t),
-      z: Vec3.dot(row3(m), t)
+      x: Vec3.dot(r1(m), t),
+      y: Vec3.dot(r2(m), t),
+      z: Vec3.dot(r3(m), t)
     };
     else return {
       ux: m.ux * t,
@@ -604,6 +622,20 @@ var Mat3;
     return m.ux * m.vy * m.wz + m.uy * m.vz * m.wx + m.uz * m.vx * m.wy - m.wx * m.vy * m.uz - m.wy * m.vz * m.ux - m.wz * m.vx * m.uy;
   }
   Mat32.determinant = determinant;
+  function transpose(m) {
+    return {
+      ux: m.ux,
+      vx: m.uy,
+      wx: m.uz,
+      uy: m.vx,
+      vy: m.vy,
+      wy: m.vz,
+      uz: m.wx,
+      vz: m.wy,
+      wz: m.wz
+    };
+  }
+  Mat32.transpose = transpose;
   function cofactor(m) {
     return {
       ux: m.vy * m.wz - m.wy * m.vz,
@@ -646,34 +678,6 @@ var Mat3;
   Mat32.buildTNB = buildTNB;
 })(Mat3 || (Mat3 = {}));
 
-// src/util.ts
-import { Direction as Direction2 } from "@minecraft/server";
-var FENCE_TAG = "chroma_tech:fence_connect";
-var LIGHT_STRIP_TAG = "chroma_tech:wire_connect_light_strip";
-function stringDirectionToDirection(d) {
-  switch (d) {
-    case "up" /* Up */:
-      return Direction2.Up;
-    case "down" /* Down */:
-      return Direction2.Down;
-    case "north" /* North */:
-      return Direction2.North;
-    case "south" /* South */:
-      return Direction2.South;
-    case "east" /* East */:
-      return Direction2.East;
-    case "west" /* West */:
-      return Direction2.West;
-  }
-  throw new Error(`${d} is not a StringDirection.`);
-}
-function stringToVec(d) {
-  return Vec3.from(stringDirectionToDirection(d));
-}
-function vecToString(v) {
-  return Vec3.toDirection(v).toLowerCase();
-}
-
 // src/components/doorComponent.ts
 var doorComponent = {
   onPlace: ({ block }) => {
@@ -681,9 +685,9 @@ var doorComponent = {
     const { permutation } = block;
     const states = permutation.getAllStates();
     if (states["chroma_tech:top"]) return;
-    const normal = stringToVec(states["minecraft:cardinal_direction"]);
+    const normal = Vec3.fromBlockFace(states["minecraft:cardinal_direction"]);
     const tnb = Mat3.buildTNB(normal);
-    if ((_a = block.offset(Mat3.col1(tnb))) == null ? void 0 : _a.typeId.endsWith("door"))
+    if ((_a = block.offset(Mat3.c1(tnb))) == null ? void 0 : _a.typeId.endsWith("door"))
       block.setPermutation(permutation.withState("chroma_tech:flipped", true));
     (_b = block.above()) == null ? void 0 : _b.setPermutation(permutation.withState("chroma_tech:top", true));
   },
@@ -716,6 +720,12 @@ world.afterEvents.blockExplode.subscribe((event) => {
 
 // src/components/fenceComponent.ts
 import { world as world2 } from "@minecraft/server";
+
+// src/common.ts
+var FENCE_TAG = "chroma_tech:fence_connect";
+var LIGHT_STRIP_TAG = "chroma_tech:wire_connect_light_strip";
+
+// src/components/fenceComponent.ts
 var fenceComponent = {
   onPlace: (event) => alterFenceBlock(event.block, event.block.permutation, true),
   onPlayerDestroy: (event) => alterFenceBlock(event.block, event.destroyedBlockPermutation, false)
@@ -809,17 +819,17 @@ var fenceGateComponent = {
   onPlayerInteract: toggleFenceGateBlock
 };
 function alterFenceGateBlock(block, permutation, placed) {
-  const normal = stringToVec(permutation.getState("minecraft:cardinal_direction"));
-  const tnb = Mat3.buildTNB(normal), tangent = Mat3.col1(tnb);
+  const normal = Vec3.fromBlockFace(permutation.getState("minecraft:cardinal_direction"));
+  const tnb = Mat3.buildTNB(normal), tangent = Mat3.c1(tnb);
   const block_l = block.offset(tangent);
   const block_r = block.offset(Vec3.neg(tangent));
   if (block_l == null ? void 0 : block_l.hasTag("fence_connect")) {
-    const dir = vecToString(Vec3.neg(tangent));
-    block_l == null ? void 0 : block_l.setPermutation(block_l == null ? void 0 : block_l.permutation.withState(`chroma_tech:${dir}`, placed));
+    const direction = Vec3.toDirection(Vec3.neg(tangent)).toLowerCase();
+    block_l == null ? void 0 : block_l.setPermutation(block_l == null ? void 0 : block_l.permutation.withState(`chroma_tech:${direction}`, placed));
   }
   if (block_r == null ? void 0 : block_r.hasTag("fence_connect")) {
-    const dir = vecToString(tangent);
-    block_r == null ? void 0 : block_r.setPermutation(block_r == null ? void 0 : block_r.permutation.withState(`chroma_tech:${dir}`, placed));
+    const direction = Vec3.toDirection(tangent).toLowerCase();
+    block_r == null ? void 0 : block_r.setPermutation(block_r == null ? void 0 : block_r.permutation.withState(`chroma_tech:${direction}`, placed));
   }
   if (placed) block.setPermutation(permutation);
 }
@@ -830,7 +840,7 @@ function toggleFenceGateBlock(event) {
     open = 0;
     dimension.playSound("close.iron_trapdoor", block.center());
   } else {
-    const direction = stringToVec(permutation.getState("minecraft:cardinal_direction"));
+    const direction = Vec3.fromBlockFace(permutation.getState("minecraft:cardinal_direction"));
     open = Vec3.dot(direction, player == null ? void 0 : player.getViewDirection()) >= 0 ? 1 : 2;
     dimension.playSound("open.iron_trapdoor", block.center());
   }
@@ -844,8 +854,8 @@ var wireConnectableComponent = {
   onPlayerDestroy: (event) => alterWireConnectionBlock(event.block, event.destroyedBlockPermutation, false)
 };
 function alterWireConnectionBlock(block, permutation, placed) {
-  const normal = stringToVec(permutation.getState("minecraft:block_face"));
-  const tnb = Mat3.buildTNB(normal), tangent = Mat3.col1(tnb), binormal = Mat3.col3(tnb);
+  const normal = Vec3.fromBlockFace(permutation.getState("minecraft:block_face"));
+  const tnb = Mat3.buildTNB(normal), tangent = Mat3.c1(tnb), binormal = Mat3.c3(tnb);
   const block_n = block.offset(Vec3.neg(binormal));
   const block_s = block.offset(binormal);
   const block_e = block.offset(tangent);
@@ -860,149 +870,155 @@ function alterWireConnectionBlock(block, permutation, placed) {
   const block_eb = block_e == null ? void 0 : block_e.offset(Vec3.neg(normal));
   const block_wb = block_w == null ? void 0 : block_w.offset(Vec3.neg(normal));
   if (block_n == null ? void 0 : block_n.hasTag(LIGHT_STRIP_TAG)) {
-    const block_n_normal = stringToVec(block_n == null ? void 0 : block_n.permutation.getState("minecraft:block_face"));
+    const block_n_normal = Vec3.fromBlockFace(block_n == null ? void 0 : block_n.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_n_normal)) {
       permutation = permutation.withState("chroma_tech:north", placed);
       block_n == null ? void 0 : block_n.setPermutation(block_n == null ? void 0 : block_n.permutation.withState("chroma_tech:south", placed));
     }
     if (Vec3.equal(binormal, block_n_normal)) {
       permutation = permutation.withState("chroma_tech:north", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_n_normal)), Vec3.neg(normal)));
+      const relative_down = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_n_normal)), Vec3.neg(normal));
+      const direction = Vec3.toBlockFace(relative_down);
       block_n == null ? void 0 : block_n.setPermutation(block_n == null ? void 0 : block_n.permutation.withState(`chroma_tech:above_${direction}`, placed));
     }
   }
   if (block_s == null ? void 0 : block_s.hasTag(LIGHT_STRIP_TAG)) {
-    const block_s_normal = stringToVec(block_s == null ? void 0 : block_s.permutation.getState("minecraft:block_face"));
+    const block_s_normal = Vec3.fromBlockFace(block_s == null ? void 0 : block_s.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_s_normal)) {
       permutation = permutation.withState("chroma_tech:south", placed);
       block_s == null ? void 0 : block_s.setPermutation(block_s == null ? void 0 : block_s.permutation.withState("chroma_tech:north", placed));
     }
     if (Vec3.equal(Vec3.neg(binormal), block_s_normal)) {
       permutation = permutation.withState("chroma_tech:south", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_s_normal)), Vec3.neg(normal)));
+      const relative_down = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_s_normal)), Vec3.neg(normal));
+      const direction = Vec3.toBlockFace(relative_down);
       block_s == null ? void 0 : block_s.setPermutation(block_s == null ? void 0 : block_s.permutation.withState(`chroma_tech:above_${direction}`, placed));
     }
   }
   if (block_e == null ? void 0 : block_e.hasTag(LIGHT_STRIP_TAG)) {
-    const block_e_normal = stringToVec(block_e == null ? void 0 : block_e.permutation.getState("minecraft:block_face"));
+    const block_e_normal = Vec3.fromBlockFace(block_e == null ? void 0 : block_e.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_e_normal)) {
       permutation = permutation.withState("chroma_tech:east", placed);
       block_e == null ? void 0 : block_e.setPermutation(block_e == null ? void 0 : block_e.permutation.withState("chroma_tech:west", placed));
     }
     if (Vec3.equal(Vec3.neg(tangent), block_e_normal)) {
       permutation = permutation.withState("chroma_tech:east", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_e_normal)), Vec3.neg(normal)));
+      const relative_down = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_e_normal)), Vec3.neg(normal));
+      const direction = Vec3.toBlockFace(relative_down);
       block_e == null ? void 0 : block_e.setPermutation(block_e == null ? void 0 : block_e.permutation.withState(`chroma_tech:above_${direction}`, placed));
     }
   }
   if (block_w == null ? void 0 : block_w.hasTag(LIGHT_STRIP_TAG)) {
-    const block_w_normal = stringToVec(block_w == null ? void 0 : block_w.permutation.getState("minecraft:block_face"));
+    const block_w_normal = Vec3.fromBlockFace(block_w == null ? void 0 : block_w.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_w_normal)) {
       permutation = permutation.withState("chroma_tech:west", placed);
       block_w == null ? void 0 : block_w.setPermutation(block_w == null ? void 0 : block_w.permutation.withState("chroma_tech:east", placed));
     }
     if (Vec3.equal(tangent, block_w_normal)) {
       permutation = permutation.withState("chroma_tech:west", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_w_normal)), Vec3.neg(normal)));
+      const relative_down = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_w_normal)), Vec3.neg(normal));
+      const direction = Vec3.toBlockFace(relative_down);
       block_w == null ? void 0 : block_w.setPermutation(block_w == null ? void 0 : block_w.permutation.withState(`chroma_tech:above_${direction}`, placed));
     }
   }
   if (block_nb == null ? void 0 : block_nb.hasTag(LIGHT_STRIP_TAG)) {
-    const block_nb_normal = stringToVec(block_nb == null ? void 0 : block_nb.permutation.getState("minecraft:block_face"));
+    const block_nb_normal = Vec3.fromBlockFace(block_nb == null ? void 0 : block_nb.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_nb_normal)) {
       permutation = permutation.withState("chroma_tech:north", placed);
       block_nb == null ? void 0 : block_nb.setPermutation(block_nb == null ? void 0 : block_nb.permutation.withState("chroma_tech:above_south", placed));
     }
     if ((block_n == null ? void 0 : block_n.isAir) && Vec3.equal(Vec3.neg(binormal), block_nb_normal)) {
       permutation = permutation.withState("chroma_tech:north", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_nb_normal)), normal));
+      const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_nb_normal)), normal);
+      const direction = Vec3.toBlockFace(relative_up);
       block_nb == null ? void 0 : block_nb.setPermutation(block_nb == null ? void 0 : block_nb.permutation.withState(`chroma_tech:${direction}`, placed));
     }
   }
   if (block_sb == null ? void 0 : block_sb.hasTag(LIGHT_STRIP_TAG)) {
-    const normal2 = stringToVec(block_sb == null ? void 0 : block_sb.permutation.getState("minecraft:block_face"));
-    if (Vec3.equal(normal2, normal2)) {
+    const block_sb_normal = Vec3.fromBlockFace(block_sb == null ? void 0 : block_sb.permutation.getState("minecraft:block_face"));
+    if (Vec3.equal(normal, block_sb_normal)) {
       permutation = permutation.withState("chroma_tech:south", placed);
       block_sb == null ? void 0 : block_sb.setPermutation(block_sb == null ? void 0 : block_sb.permutation.withState("chroma_tech:above_north", placed));
     }
-    if ((block_s == null ? void 0 : block_s.isAir) && Vec3.equal(binormal, normal2)) {
+    if ((block_s == null ? void 0 : block_s.isAir) && Vec3.equal(binormal, block_sb_normal)) {
       permutation = permutation.withState("chroma_tech:south", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(normal2)), normal2));
+      const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_sb_normal)), normal);
+      const direction = Vec3.toBlockFace(relative_up);
       block_sb == null ? void 0 : block_sb.setPermutation(block_sb == null ? void 0 : block_sb.permutation.withState(`chroma_tech:${direction}`, placed));
     }
   }
   if (block_eb == null ? void 0 : block_eb.hasTag(LIGHT_STRIP_TAG)) {
-    const normal2 = stringToVec(block_eb == null ? void 0 : block_eb.permutation.getState("minecraft:block_face"));
-    if (Vec3.equal(normal2, normal2)) {
+    const block_eb_normal = Vec3.fromBlockFace(block_eb == null ? void 0 : block_eb.permutation.getState("minecraft:block_face"));
+    if (Vec3.equal(normal, block_eb_normal)) {
       permutation = permutation.withState("chroma_tech:east", placed);
       block_eb == null ? void 0 : block_eb.setPermutation(block_eb == null ? void 0 : block_eb.permutation.withState("chroma_tech:above_west", placed));
     }
-    if ((block_e == null ? void 0 : block_e.isAir) && Vec3.equal(tangent, normal2)) {
+    if ((block_e == null ? void 0 : block_e.isAir) && Vec3.equal(tangent, block_eb_normal)) {
       permutation = permutation.withState("chroma_tech:east", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(normal2)), normal2));
+      const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_eb_normal)), normal);
+      const direction = Vec3.toBlockFace(relative_up);
       block_eb == null ? void 0 : block_eb.setPermutation(block_eb == null ? void 0 : block_eb.permutation.withState(`chroma_tech:${direction}`, placed));
     }
   }
   if (block_wb == null ? void 0 : block_wb.hasTag(LIGHT_STRIP_TAG)) {
-    const normal2 = stringToVec(block_wb == null ? void 0 : block_wb.permutation.getState("minecraft:block_face"));
-    if (Vec3.equal(normal2, normal2)) {
+    const block_wb_normal = Vec3.fromBlockFace(block_wb == null ? void 0 : block_wb.permutation.getState("minecraft:block_face"));
+    if (Vec3.equal(normal, block_wb_normal)) {
       permutation = permutation.withState("chroma_tech:west", placed);
       block_wb == null ? void 0 : block_wb.setPermutation(block_wb == null ? void 0 : block_wb.permutation.withState("chroma_tech:above_east", placed));
     }
-    if ((block_w == null ? void 0 : block_w.isAir) && Vec3.equal(Vec3.neg(tangent), normal2)) {
+    if ((block_w == null ? void 0 : block_w.isAir) && Vec3.equal(Vec3.neg(tangent), block_wb_normal)) {
       permutation = permutation.withState("chroma_tech:west", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(normal2)), normal2));
+      const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_wb_normal)), normal);
+      const direction = Vec3.toBlockFace(relative_up);
       block_wb == null ? void 0 : block_wb.setPermutation(block_wb == null ? void 0 : block_wb.permutation.withState(`chroma_tech:${direction}`, placed));
     }
   }
   if (block_na == null ? void 0 : block_na.hasTag(LIGHT_STRIP_TAG)) {
-    const block_na_normal = stringToVec(block_na == null ? void 0 : block_na.permutation.getState("minecraft:block_face"));
+    const block_na_normal = Vec3.fromBlockFace(block_na == null ? void 0 : block_na.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_na_normal)) {
       permutation = permutation.withState("chroma_tech:above_north", placed);
       block_na == null ? void 0 : block_na.setPermutation(block_na == null ? void 0 : block_na.permutation.withState("chroma_tech:south", placed));
     }
   }
   if (block_sa == null ? void 0 : block_sa.hasTag(LIGHT_STRIP_TAG)) {
-    const block_sa_normal = stringToVec(block_sa == null ? void 0 : block_sa.permutation.getState("minecraft:block_face"));
+    const block_sa_normal = Vec3.fromBlockFace(block_sa == null ? void 0 : block_sa.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_sa_normal)) {
       permutation = permutation.withState("chroma_tech:above_south", placed);
       block_sa == null ? void 0 : block_sa.setPermutation(block_sa == null ? void 0 : block_sa.permutation.withState("chroma_tech:north", placed));
     }
   }
   if (block_ea == null ? void 0 : block_ea.hasTag(LIGHT_STRIP_TAG)) {
-    const block_ea_normal = stringToVec(block_ea == null ? void 0 : block_ea.permutation.getState("minecraft:block_face"));
+    const block_ea_normal = Vec3.fromBlockFace(block_ea == null ? void 0 : block_ea.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_ea_normal)) {
       permutation = permutation.withState("chroma_tech:above_east", placed);
       block_ea == null ? void 0 : block_ea.setPermutation(block_ea == null ? void 0 : block_ea.permutation.withState("chroma_tech:west", placed));
     }
   }
   if (block_wa == null ? void 0 : block_wa.hasTag(LIGHT_STRIP_TAG)) {
-    const block_wa_normal = stringToVec(block_wa == null ? void 0 : block_wa.permutation.getState("minecraft:block_face"));
+    const block_wa_normal = Vec3.fromBlockFace(block_wa == null ? void 0 : block_wa.permutation.getState("minecraft:block_face"));
     if (Vec3.equal(normal, block_wa_normal)) {
       permutation = permutation.withState("chroma_tech:above_west", placed);
       block_wa == null ? void 0 : block_wa.setPermutation(block_wa == null ? void 0 : block_wa.permutation.withState("chroma_tech:east", placed));
     }
   }
   if (block_a == null ? void 0 : block_a.hasTag(LIGHT_STRIP_TAG)) {
-    const block_a_normal = stringToVec(block_a == null ? void 0 : block_a.permutation.getState("minecraft:block_face"));
+    const block_a_normal = Vec3.fromBlockFace(block_a == null ? void 0 : block_a.permutation.getState("minecraft:block_face"));
+    const relative_down = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_a_normal)), Vec3.neg(normal));
+    const direction = Vec3.toBlockFace(relative_down);
     if (Vec3.equal(binormal, block_a_normal)) {
       permutation = permutation.withState("chroma_tech:above_north", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_a_normal)), Vec3.neg(normal)));
       block_a == null ? void 0 : block_a.setPermutation(block_a == null ? void 0 : block_a.permutation.withState(`chroma_tech:${direction}`, placed));
     }
     if (Vec3.equal(Vec3.neg(binormal), block_a_normal)) {
       permutation = permutation.withState("chroma_tech:above_south", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_a_normal)), Vec3.neg(normal)));
       block_a == null ? void 0 : block_a.setPermutation(block_a == null ? void 0 : block_a.permutation.withState(`chroma_tech:${direction}`, placed));
     }
     if (Vec3.equal(Vec3.neg(tangent), block_a_normal)) {
       permutation = permutation.withState("chroma_tech:above_east", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_a_normal)), Vec3.neg(normal)));
       block_a == null ? void 0 : block_a.setPermutation(block_a == null ? void 0 : block_a.permutation.withState(`chroma_tech:${direction}`, placed));
     }
     if (Vec3.equal(tangent, block_a_normal)) {
       permutation = permutation.withState("chroma_tech:above_west", placed);
-      const direction = vecToString(Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_a_normal)), Vec3.neg(normal)));
       block_a == null ? void 0 : block_a.setPermutation(block_a == null ? void 0 : block_a.permutation.withState(`chroma_tech:${direction}`, placed));
     }
   }

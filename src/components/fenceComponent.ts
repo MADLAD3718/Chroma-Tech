@@ -1,5 +1,5 @@
 import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
-import { FENCE_TAG, LIGHT_STRIP_TAG } from "../util";
+import { FENCE_TAG, LIGHT_STRIP_TAG } from "../common";
 import { Vec3 } from "@madlad3718/mcvec3";
 
 export const fenceComponent: BlockCustomComponent = {

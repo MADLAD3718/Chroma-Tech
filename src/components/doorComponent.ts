@@ -1,15 +1,14 @@
 import { Block, BlockComponentOnPlaceEvent, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
-import { Mat3 } from "@madlad3718/mcvec3";
-import { stringToVec } from "../util";
+import { Mat3, Vec3 } from "@madlad3718/mcvec3";
 
 export const doorComponent: BlockCustomComponent = {
     onPlace: ({block}: BlockComponentOnPlaceEvent) => {
         const {permutation} = block;
         const states = permutation.getAllStates();
         if (states["chroma_tech:top"]) return;
-        const normal = stringToVec(states["minecraft:cardinal_direction"] as string);
+        const normal = Vec3.fromBlockFace(states["minecraft:cardinal_direction"] as string);
         const tnb = Mat3.buildTNB(normal);
-        if (block.offset(Mat3.col1(tnb))?.typeId.endsWith("door"))
+        if (block.offset(Mat3.c1(tnb))?.typeId.endsWith("door"))
             block.setPermutation(permutation.withState("chroma_tech:flipped", true));
         block.above()?.setPermutation(permutation.withState("chroma_tech:top", true));
     },
