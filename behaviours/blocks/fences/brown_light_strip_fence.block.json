@@ -8,26 +8,26 @@
                 "group": "itemGroup.name.fence"
             },
             "states": {
-                "onyx:north":     [false, true],
-                "onyx:south":     [false, true],
-                "onyx:east":      [false, true],
-                "onyx:west":      [false, true],
-                "onyx:above":     [false, true],
-                "onyx:below":     [false, true],
-                "onyx:alternate": [false, true]
+                "chroma_tech:north":     [false, true],
+                "chroma_tech:south":     [false, true],
+                "chroma_tech:east":      [false, true],
+                "chroma_tech:west":      [false, true],
+                "chroma_tech:above":     [false, true],
+                "chroma_tech:below":     [false, true],
+                "chroma_tech:alternate": [false, true]
             }
         },
         "components": {
-            "minecraft:custom_components": ["onyx:fence", "onyx:prevent_underwater_placement"],
-            "tag:fence_connect": {},
+            "minecraft:custom_components": ["chroma_tech:fence", "chroma_tech:prevent_underwater_placement"],
+            "tag:chroma_tech:fence_connect": {},
             "minecraft:geometry": {
                 "identifier": "geometry.light_strip_fence",
                 "bone_visibility": {
-                    "center": "q.block_state('onyx:above') || q.block_state('onyx:below') || !((q.block_state('onyx:north') && q.block_state('onyx:south') && !q.block_state('onyx:east') && !q.block_state('onyx:west')) || (!q.block_state('onyx:north') && !q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west')))",
-                    "north": "q.block_state('onyx:north')",
-                    "south": "q.block_state('onyx:south')",
-                    "east": "q.block_state('onyx:east')",
-                    "west": "q.block_state('onyx:west')"
+                    "center": "q.block_state('chroma_tech:above') || q.block_state('chroma_tech:below') || !((q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south') && !q.block_state('chroma_tech:east') && !q.block_state('chroma_tech:west')) || (!q.block_state('chroma_tech:north') && !q.block_state('chroma_tech:south') && q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west')))",
+                    "north": "q.block_state('chroma_tech:north')",
+                    "south": "q.block_state('chroma_tech:south')",
+                    "east": "q.block_state('chroma_tech:east')",
+                    "west": "q.block_state('chroma_tech:west')"
                 }
             },
             "minecraft:transformation": {
@@ -54,7 +54,7 @@
         },
         "permutations": [
             { // Single Piece
-                "condition": "q.block_state('onyx:north')",
+                "condition": "q.block_state('chroma_tech:north')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -8],
@@ -67,7 +67,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:south')",
+                "condition": "q.block_state('chroma_tech:south')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -2],
@@ -80,7 +80,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:east')",
+                "condition": "q.block_state('chroma_tech:east')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -2],
@@ -93,7 +93,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:west')",
+                "condition": "q.block_state('chroma_tech:west')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -2],
@@ -106,7 +106,7 @@
                 }
             },
             { // Double Accross
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -8],
@@ -119,7 +119,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west')",
+                "condition": "q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west')",
                 "components": {
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -2],
@@ -132,7 +132,7 @@
                 }
             },
             { // Corner
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:east')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:east')",
                 "components": { // North Collision
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -8],
@@ -145,7 +145,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:east') && q.block_state('onyx:south')",
+                "condition": "q.block_state('chroma_tech:east') && q.block_state('chroma_tech:south')",
                 "components": { // South Collision
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -2],
@@ -158,7 +158,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:south') && q.block_state('onyx:west')",
+                "condition": "q.block_state('chroma_tech:south') && q.block_state('chroma_tech:west')",
                 "components": { // West Collision
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -2],
@@ -171,7 +171,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:west') && q.block_state('onyx:north')",
+                "condition": "q.block_state('chroma_tech:west') && q.block_state('chroma_tech:north')",
                 "components": { // West Collision
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -8],
@@ -184,7 +184,7 @@
                 }
             },
             { // Triple
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south') && q.block_state('chroma_tech:east')",
                 "components": { // N + S
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -8],
@@ -197,7 +197,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:west')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south') && q.block_state('chroma_tech:west')",
                 "components": { //  N + S
                     "minecraft:selection_box": {
                         "origin": [-2, 0, -8],
@@ -210,7 +210,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:north')",
+                "condition": "q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west') && q.block_state('chroma_tech:north')",
                 "components": { // E + W
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -8],
@@ -223,7 +223,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:south')",
+                "condition": "q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west') && q.block_state('chroma_tech:south')",
                 "components": { // E + W
                     "minecraft:selection_box": {
                         "origin": [-8, 0, -2],
@@ -236,7 +236,7 @@
                 }
             },
             { // All
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south') && q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west')",
                 "components": { // N + S
                     "minecraft:selection_box": {
                         "origin": [-8.0, 0.0, -8.0],
@@ -249,7 +249,7 @@
                 }
             },
             { // Alternate ALL
-                "condition": "q.block_state('onyx:north') && q.block_state('onyx:south') && q.block_state('onyx:east') && q.block_state('onyx:west') && q.block_state('onyx:alternate')",
+                "condition": "q.block_state('chroma_tech:north') && q.block_state('chroma_tech:south') && q.block_state('chroma_tech:east') && q.block_state('chroma_tech:west') && q.block_state('chroma_tech:alternate')",
                 "components": { // E + W
                     "minecraft:collision_box": {
                         "origin": [-8, 0, -2],

@@ -13,31 +13,31 @@
                 }
             },
             "states": {
-                "onyx:north": [false, true],
-				"onyx:south": [false, true],
-				"onyx:east": [false, true],
-				"onyx:west": [false, true],
-				"onyx:above_north": [false, true],
-				"onyx:above_south": [false, true],
-				"onyx:above_east": [false, true],
-				"onyx:above_west": [false, true],
-                "onyx:placed": [false, true]
+                "chroma_tech:north": [false, true],
+				"chroma_tech:south": [false, true],
+				"chroma_tech:east": [false, true],
+				"chroma_tech:west": [false, true],
+				"chroma_tech:above_north": [false, true],
+				"chroma_tech:above_south": [false, true],
+				"chroma_tech:above_east": [false, true],
+				"chroma_tech:above_west": [false, true],
+                "chroma_tech:placed": [false, true]
             }
         },
         "components": {
-            "minecraft:custom_components": ["onyx:connectable_wire", "onyx:prevent_underwater_placement"],
+            "minecraft:custom_components": ["chroma_tech:connectable_wire", "chroma_tech:prevent_underwater_placement"],
             "tag:wire_connect_light_strip": {},
             "minecraft:geometry": {
                 "identifier": "geometry.light_strip",
                 "bone_visibility": {
-                    "north": "q.block_state('onyx:north') || q.block_state('onyx:above_north')",
-                    "south": "q.block_state('onyx:south') || q.block_state('onyx:above_south')",
-                    "east": "q.block_state('onyx:east') || q.block_state('onyx:above_east')",
-                    "west": "q.block_state('onyx:west') || q.block_state('onyx:above_west')",
-                    "extend_north": "q.block_state('onyx:above_north')",
-                    "extend_south": "q.block_state('onyx:above_south')",
-                    "extend_east": "q.block_state('onyx:above_east')",
-                    "extend_west": "q.block_state('onyx:above_west')"
+                    "north": "q.block_state('chroma_tech:north') || q.block_state('chroma_tech:above_north')",
+                    "south": "q.block_state('chroma_tech:south') || q.block_state('chroma_tech:above_south')",
+                    "east": "q.block_state('chroma_tech:east') || q.block_state('chroma_tech:above_east')",
+                    "west": "q.block_state('chroma_tech:west') || q.block_state('chroma_tech:above_west')",
+                    "extend_north": "q.block_state('chroma_tech:above_north')",
+                    "extend_south": "q.block_state('chroma_tech:above_south')",
+                    "extend_east": "q.block_state('chroma_tech:above_east')",
+                    "extend_west": "q.block_state('chroma_tech:above_west')"
                 }
             },
             "minecraft:selection_box": {
@@ -199,7 +199,7 @@
                 }
 			},
             {
-                "condition": "q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'up'",
+                "condition": "q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'up'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [
@@ -280,7 +280,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'down'",
+                "condition": "q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'down'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [
@@ -357,7 +357,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'north'",
+                "condition": "q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'north'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [
@@ -418,7 +418,7 @@
                 }
             },
             {
-                "condition": "q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'south'",
+                "condition": "q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'south'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [
@@ -479,7 +479,7 @@
                 }
             },
             {
-                "condition":"q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'east'",
+                "condition":"q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'east'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [
@@ -540,7 +540,7 @@
                 }
             },
             {
-                "condition":"q.block_state('onyx:placed') && q.block_state('minecraft:block_face') == 'west'",
+                "condition":"q.block_state('chroma_tech:placed') && q.block_state('minecraft:block_face') == 'west'",
                 "components": {
                     "minecraft:placement_filter": {
                         "conditions": [

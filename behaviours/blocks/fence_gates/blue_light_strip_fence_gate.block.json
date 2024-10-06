@@ -13,11 +13,11 @@
                 }
             },
             "states": {
-                "onyx:open": [0, 1, 2]
+                "chroma_tech:open": [0, 1, 2]
             }
         },
         "components": {
-            "minecraft:custom_components": ["onyx:fence_gate", "onyx:prevent_underwater_placement"],
+            "minecraft:custom_components": ["chroma_tech:fence_gate", "chroma_tech:prevent_underwater_placement"],
             "tag:fence_gate_connect": {},
             "minecraft:geometry": "geometry.light_strip_fence_gate",
             "minecraft:transformation": {
@@ -44,19 +44,19 @@
         },
         "permutations": [
             {
-                "condition": "q.block_state('onyx:open') != 0",
+                "condition": "q.block_state('chroma_tech:open') != 0",
                 "components": {
                     "minecraft:collision_box": false
                 }
             },
             {
-                "condition": "q.block_state('onyx:open') == 1",
+                "condition": "q.block_state('chroma_tech:open') == 1",
                 "components": {
                     "minecraft:geometry": "geometry.light_strip_fence_gate_open"
                 }
             },
             {
-                "condition": "q.block_state('onyx:open') == 2",
+                "condition": "q.block_state('chroma_tech:open') == 2",
                 "components": {
                     "minecraft:geometry": "geometry.light_strip_fence_gate_open_alt"
                 }
