@@ -1,8 +1,8 @@
-import { Block, BlockComponentOnPlaceEvent, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
+import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
 import { Mat3, Vec3 } from "@madlad3718/mcvec3";
 
 export const doorComponent: BlockCustomComponent = {
-    onPlace: ({block}: BlockComponentOnPlaceEvent) => {
+    onPlace: ({block}) => {
         const {permutation} = block;
         const states = permutation.getAllStates();
         if (states["chroma_tech:top"]) return;

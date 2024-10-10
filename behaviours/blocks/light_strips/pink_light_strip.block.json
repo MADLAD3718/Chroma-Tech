@@ -26,7 +26,7 @@
         },
         "components": {
             "minecraft:custom_components": ["chroma_tech:connectable_wire", "chroma_tech:prevent_underwater_placement"],
-            "tag:wire_connect_light_strip": {},
+            "tag:chroma_tech:wire_connect_light_strip": {},
             "minecraft:geometry": {
                 "identifier": "geometry.light_strip",
                 "bone_visibility": {

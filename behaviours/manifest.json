@@ -3,10 +3,10 @@
 	"metadata": { "authors": ["MADLAD3718"] },
 	"header": {
 		"name": "Chroma Tech",
-		"description": "An addon implementing interconnecting LED light strips!\nDesigned by §6MADLAD3718§r.",
+		"description": "An addon implementing interconnecting LED light strips!",
 		"uuid": "c507b9fe-b382-49b1-9a5b-d6f9bd025f2c",
 		"version": [3,0,0],
-		"min_engine_version": [1,21,20]
+		"min_engine_version": [1,21,30]
 	},
 	"modules": [
 		{
