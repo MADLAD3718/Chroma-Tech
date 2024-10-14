@@ -1,7 +1,7 @@
 import { BlockCustomComponent } from "@minecraft/server";
 
 export const preventUnderwaterPlacementComponent: BlockCustomComponent = {
-    beforeOnPlayerPlace: event => {
+    beforeOnPlayerPlace(event) {
         event.cancel = event.block.isLiquid;
     }
 }

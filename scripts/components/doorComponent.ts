@@ -2,7 +2,7 @@ import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft
 import { Mat3, Vec3 } from "@madlad3718/mcvec3";
 
 export const doorComponent: BlockCustomComponent = {
-    onPlace: ({block}) => {
+    onPlace({block}) {
         const {permutation} = block;
         const states = permutation.getAllStates();
         if (states["chroma_tech:top"]) return;
@@ -13,7 +13,7 @@ export const doorComponent: BlockCustomComponent = {
         block.above()?.setPermutation(block.permutation.withState("chroma_tech:top", true));
     },
 
-    onPlayerInteract: event => {
+    onPlayerInteract(event) {
         const {block, dimension} = event, {permutation} = block;
         const open = !permutation.getState("chroma_tech:open")
         block.setPermutation(permutation.withState("chroma_tech:open", open));
@@ -23,7 +23,7 @@ export const doorComponent: BlockCustomComponent = {
         dimension.playSound(open ? "open.iron_door" : "close.iron_door", block.center());
     },
 
-    beforeOnPlayerPlace: event => {
+    beforeOnPlayerPlace(event) {
         event.cancel = !event.block.above()?.isAir;
     },
 
