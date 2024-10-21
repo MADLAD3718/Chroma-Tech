@@ -1,5 +1,5 @@
 import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
-import { FENCE_TAG, LIGHT_STRIP_TAG } from "../common";
+import { DOOR_TAG, FENCE_TAG, LIGHT_STRIP_TAG } from "../common";
 import { Vec3 } from "@madlad3718/mcvec3";
 
 export const fenceComponent: BlockCustomComponent = {
@@ -15,7 +15,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
     const block_a = block.above();
     const block_b = block.below();
 
-    if (!block_n?.hasTag(LIGHT_STRIP_TAG) && !block_n?.isAir && !block_n?.isLiquid) {
+    if (!block_n?.hasTag(LIGHT_STRIP_TAG) && !block_n?.isAir && !block_n?.isLiquid && !block_n?.hasTag(DOOR_TAG)) {
         if (block_n?.hasTag(FENCE_TAG))
             block_n?.setPermutation(block_n?.permutation.withState("chroma_tech:south", placed));
         if (block_n?.hasTag("fence_gate_connect")) {
@@ -25,7 +25,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
         }
         else permutation = permutation.withState("chroma_tech:north", placed);
     }
-    if (!block_s?.hasTag(LIGHT_STRIP_TAG) && !block_s?.isAir && !block_s?.isLiquid) {
+    if (!block_s?.hasTag(LIGHT_STRIP_TAG) && !block_s?.isAir && !block_s?.isLiquid && !block_s?.hasTag(DOOR_TAG)) {
         if (block_s?.hasTag(FENCE_TAG))
             block_s?.setPermutation(block_s?.permutation.withState("chroma_tech:north", placed));
         if (block_s?.hasTag("fence_gate_connect")) {
@@ -35,7 +35,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
         }
         else permutation = permutation.withState("chroma_tech:south", placed);
     }
-    if (!block_e?.hasTag(LIGHT_STRIP_TAG) && !block_e?.isAir && !block_e?.isLiquid) {
+    if (!block_e?.hasTag(LIGHT_STRIP_TAG) && !block_e?.isAir && !block_e?.isLiquid && !block_e?.hasTag(DOOR_TAG)) {
         if (block_e?.hasTag(FENCE_TAG))
             block_e?.setPermutation(block_e?.permutation.withState("chroma_tech:west", placed));
         if (block_e?.hasTag("fence_gate_connect")) {
@@ -45,7 +45,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
         }
         else permutation = permutation.withState("chroma_tech:east", placed);
     }
-    if (!block_w?.hasTag(LIGHT_STRIP_TAG) && !block_w?.isAir && !block_w?.isLiquid) {
+    if (!block_w?.hasTag(LIGHT_STRIP_TAG) && !block_w?.isAir && !block_w?.isLiquid && !block_w?.hasTag(DOOR_TAG)) {
         if (block_w?.hasTag(FENCE_TAG))
             block_w?.setPermutation(block_w?.permutation.withState("chroma_tech:east", placed));
         if (block_w?.hasTag("fence_gate_connect")) {
@@ -72,7 +72,7 @@ world.afterEvents.playerBreakBlock.subscribe(event => alterBlock(event.block, fa
 world.afterEvents.playerPlaceBlock.subscribe(event => alterBlock(event.block, true));
 
 function alterBlock(block: Block, placed: boolean) {
-    if (block.hasTag(FENCE_TAG) || block.hasTag(LIGHT_STRIP_TAG)) return;
+    if (block.hasTag(FENCE_TAG) || block.hasTag(LIGHT_STRIP_TAG) || block.hasTag(DOOR_TAG)) return;
 
     const block_n = block.north();
     const block_s = block.south();

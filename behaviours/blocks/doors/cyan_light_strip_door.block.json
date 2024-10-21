@@ -20,7 +20,7 @@
         },
         "components": {
             "minecraft:custom_components": ["chroma_tech:door", "chroma_tech:prevent_underwater_placement"],
-            "tag:door": {},
+            "tag:chroma_tech:light_strip_door": {},
             "minecraft:geometry": "geometry.light_strip_door",
             "minecraft:selection_box": {
                 "origin": [-8.0, 0.0, 6.0],

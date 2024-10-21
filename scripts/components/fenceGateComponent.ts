@@ -1,5 +1,5 @@
-import { Block, BlockComponentPlayerInteractEvent, BlockCustomComponent, BlockPermutation } from "@minecraft/server";
-import { Vec3, Mat3, Vector3 } from "@madlad3718/mcvec3";
+import { Block, BlockComponentPlayerInteractEvent, BlockCustomComponent, BlockPermutation, Vector3 } from "@minecraft/server";
+import { Vec3, Mat3 } from "@madlad3718/mcvec3";
 
 export const fenceGateComponent: BlockCustomComponent = {
     onPlace: event => alterFenceGateBlock(event.block, event.block.permutation, true),

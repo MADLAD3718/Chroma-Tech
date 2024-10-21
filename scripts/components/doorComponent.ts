@@ -1,5 +1,6 @@
 import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
 import { Mat3, Vec3 } from "@madlad3718/mcvec3";
+import { DOOR_TAG } from "../common";
 
 export const doorComponent: BlockCustomComponent = {
     onPlace({block}) {
@@ -37,6 +38,6 @@ function breakDoor(block: Block, permutation: BlockPermutation) {
 }
 
 world.afterEvents.blockExplode.subscribe(event => {
-    if (!event.explodedBlockPermutation.hasTag("door")) return;
+    if (!event.explodedBlockPermutation.hasTag(DOOR_TAG)) return;
     breakDoor(event.block, event.explodedBlockPermutation);
 });
