@@ -18,7 +18,7 @@
         },
         "components": {
             "minecraft:custom_components": ["chroma_tech:fence_gate", "chroma_tech:prevent_underwater_placement"],
-            "tag:fence_gate_connect": {},
+            "tag:chroma_tech:fence_gate_connect": {},
             "minecraft:geometry": "geometry.light_strip_fence_gate",
             "minecraft:transformation": {
                 "scale": [1.0, 1.5, 1.0],

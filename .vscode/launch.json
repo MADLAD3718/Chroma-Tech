@@ -6,7 +6,7 @@
             "request": "attach",
             "name": "Debug with Minecraft",
             "mode": "listen",
-            "targetModuleUuid": "bbafe525-c35e-4e21-aba7-5a8a63f46ac7",
+            "targetModuleUuid": "b32c99be-0bae-4c87-b181-3fa5497d444c",
             "sourceMapRoot": "${workspaceFolder}/behaviours/scripts",
             "generatedSourceRoot": "${workspaceFolder}/behaviours/scripts",
             "port": 19144

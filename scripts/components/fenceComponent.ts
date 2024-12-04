@@ -18,7 +18,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
     if (!block_n?.hasTag(LIGHT_STRIP_TAG) && !block_n?.isAir && !block_n?.isLiquid && !block_n?.hasTag(DOOR_TAG)) {
         if (block_n?.hasTag(FENCE_TAG))
             block_n?.setPermutation(block_n?.permutation.withState("chroma_tech:south", placed));
-        if (block_n?.hasTag("fence_gate_connect")) {
+        if (block_n?.hasTag("chroma_tech:fence_gate_connect")) {
             const direction = block_n?.permutation.getState("minecraft:cardinal_direction");
             if (direction == "east" || direction == "west")
                 permutation = permutation.withState("chroma_tech:north", placed);
@@ -28,7 +28,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
     if (!block_s?.hasTag(LIGHT_STRIP_TAG) && !block_s?.isAir && !block_s?.isLiquid && !block_s?.hasTag(DOOR_TAG)) {
         if (block_s?.hasTag(FENCE_TAG))
             block_s?.setPermutation(block_s?.permutation.withState("chroma_tech:north", placed));
-        if (block_s?.hasTag("fence_gate_connect")) {
+        if (block_s?.hasTag("chroma_tech:fence_gate_connect")) {
             const direction = block_s?.permutation.getState("minecraft:cardinal_direction");
             if (direction == "east" || direction == "west")
                 permutation = permutation.withState("chroma_tech:south", placed);
@@ -38,7 +38,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
     if (!block_e?.hasTag(LIGHT_STRIP_TAG) && !block_e?.isAir && !block_e?.isLiquid && !block_e?.hasTag(DOOR_TAG)) {
         if (block_e?.hasTag(FENCE_TAG))
             block_e?.setPermutation(block_e?.permutation.withState("chroma_tech:west", placed));
-        if (block_e?.hasTag("fence_gate_connect")) {
+        if (block_e?.hasTag("chroma_tech:fence_gate_connect")) {
             const direction = block_e?.permutation.getState("minecraft:cardinal_direction");
             if (direction == "north" || direction == "south")
                 permutation = permutation.withState("chroma_tech:east", placed);
@@ -48,7 +48,7 @@ function alterFenceBlock(block: Block, permutation: BlockPermutation, placed: bo
     if (!block_w?.hasTag(LIGHT_STRIP_TAG) && !block_w?.isAir && !block_w?.isLiquid && !block_w?.hasTag(DOOR_TAG)) {
         if (block_w?.hasTag(FENCE_TAG))
             block_w?.setPermutation(block_w?.permutation.withState("chroma_tech:east", placed));
-        if (block_w?.hasTag("fence_gate_connect")) {
+        if (block_w?.hasTag("chroma_tech:fence_gate_connect")) {
             const direction = block_w?.permutation.getState("minecraft:cardinal_direction");
             if (direction == "north" || direction == "south")
                 permutation = permutation.withState("chroma_tech:west", placed);

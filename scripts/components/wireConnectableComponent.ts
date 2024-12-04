@@ -1,4 +1,4 @@
-import { Block, BlockCustomComponent, BlockPermutation, system, world } from "@minecraft/server";
+import { Block, BlockCustomComponent, BlockPermutation, ItemStack, system, world } from "@minecraft/server";
 import { Mat3, Vec3 } from "@madlad3718/mcvec3";
 import { LIGHT_STRIP_TAG } from "../common";
 
@@ -195,7 +195,6 @@ function alterWireConnectionBlock(block: Block, permutation: BlockPermutation, p
         }
     }
 
-    permutation = permutation.withState("chroma_tech:placed", placed);
     if (placed) block.setPermutation(permutation);
 }
 
@@ -217,31 +216,40 @@ world.beforeEvents.playerBreakBlock.subscribe(({block}) => {
     if (block_n?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_n?.permutation;
         if (permutation.getState("minecraft:block_face") == "north")
-            system.run(() => alterWireConnectionBlock(block_n, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_n));
     }
     if (block_s?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_s?.permutation;
         if (permutation.getState("minecraft:block_face") == "south")
-            system.run(() => alterWireConnectionBlock(block_s, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_s));
     }
     if (block_e?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_e?.permutation;
         if (permutation.getState("minecraft:block_face") == "east")
-            system.run(() => alterWireConnectionBlock(block_e, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_e));
     }
     if (block_w?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_w?.permutation;
         if (permutation.getState("minecraft:block_face") == "west")
-            system.run(() => alterWireConnectionBlock(block_w, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_w));
     }
     if (block_a?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_a?.permutation;
         if (permutation.getState("minecraft:block_face") == "up")
-            system.run(() => alterWireConnectionBlock(block_a, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_a));
     }
     if (block_b?.hasTag(LIGHT_STRIP_TAG)) {
         const permutation = block_b?.permutation;
         if (permutation.getState("minecraft:block_face") == "down")
-            system.run(() => alterWireConnectionBlock(block_b, permutation, false));
+            system.run(() => breakWireConnectionBlock(block_b));
     }
 });
+
+function breakWireConnectionBlock(block: Block) {
+    const {dimension, permutation} = block;
+    const item = new ItemStack(block.typeId);
+    block.setType("minecraft:air");
+    dimension.playSound("dig.stone", block.center());
+    dimension.spawnItem(item, block.center());
+    alterWireConnectionBlock(block, permutation, false);
+}

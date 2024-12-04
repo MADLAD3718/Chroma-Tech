@@ -7,6 +7,6 @@ export default defineConfig({
     clean: true,
     outDir: "./behaviours/scripts",
     noExternal: ["@madlad3718/mcvec3"],
-    sourcemap: false,
-    minify: true
+    sourcemap: true,
+    minify: false
 });
