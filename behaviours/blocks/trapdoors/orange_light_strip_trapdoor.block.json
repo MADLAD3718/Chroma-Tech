@@ -1,11 +1,11 @@
 {
-    "format_version": "1.21.20",
+    "format_version": "1.21.60",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:orange_light_strip_trapdoor",
             "menu_category": {
                 "category": "construction",
-                "group": "itemGroup.name.trapdoor"
+                "group": "minecraft:itemGroup.name.trapdoor"
             },
             "traits": {
                 "minecraft:placement_direction": {
@@ -20,7 +20,7 @@
             }
         },
         "components": {
-            "minecraft:custom_components": ["chroma_tech:trapdoor", "chroma_tech:prevent_underwater_placement"],
+            "minecraft:custom_components": ["chroma_tech:trapdoor"],
             "minecraft:geometry": "geometry.light_strip_trapdoor",
             "minecraft:selection_box": {
                 "origin": [-8.0, 0.0, -8.0],
@@ -39,6 +39,12 @@
                     "ambient_occlusion": false,
                     "face_dimming": false
                 }
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [{
+                    "can_contain_liquid": true,
+                    "on_liquid_touches": "blocking"
+                }]
             }
         },
         "permutations": [

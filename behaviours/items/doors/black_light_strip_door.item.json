@@ -1,16 +1,19 @@
 {
-    "format_version": "1.21.10",
+    "format_version": "1.21.60",
     "minecraft:item": {
         "description": {
             "identifier": "chroma_tech:black_light_strip_door",
             "menu_category": {
                 "category": "construction",
-                "group": "itemGroup.name.door"
+                "group": "minecraft:itemGroup.name.door"
             }
         },
         "components": {
             "minecraft:display_name": { "value": "item.chroma_tech:black_light_strip_door.name" },
-            "minecraft:block_placer": { "block": "chroma_tech:black_light_strip_door" },
+            "minecraft:block_placer": {
+                "block": "chroma_tech:black_light_strip_door",
+                "replace_block_item": true
+            },
             "minecraft:icon": {
                 "textures": {
                     "default": "black_light_strip_door"

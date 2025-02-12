@@ -90,3 +90,5 @@ item.chroma_tech:purple_light_strip_door.name=Purple Lightstrip Door
 item.chroma_tech:magenta_light_strip_door.name=Magenta Lightstrip Door
 item.chroma_tech:yellow_light_strip_door.name=Yellow Lightstrip Door
 item.chroma_tech:white_light_strip_door.name=White Lightstrip Door
+
+chroma_tech:light_strips_group=Light Strips

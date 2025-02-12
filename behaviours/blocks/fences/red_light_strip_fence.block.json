@@ -1,11 +1,11 @@
 {
-    "format_version": "1.21.20",
+    "format_version": "1.21.60",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:red_light_strip_fence",
             "menu_category": {
                 "category": "construction",
-                "group": "itemGroup.name.fence"
+                "group": "minecraft:itemGroup.name.fence"
             },
             "states": {
                 "chroma_tech:north":     [false, true],
@@ -18,7 +18,7 @@
             }
         },
         "components": {
-            "minecraft:custom_components": ["chroma_tech:fence", "chroma_tech:prevent_underwater_placement"],
+            "minecraft:custom_components": ["chroma_tech:fence"],
             "tag:chroma_tech:fence_connect": {},
             "minecraft:geometry": {
                 "identifier": "geometry.light_strip_fence",
@@ -50,6 +50,23 @@
                     "render_method": "opaque",
                     "ambient_occlusion": false,
                     "face_dimming": false
+                }
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [{
+                    "can_contain_liquid": true,
+                    "on_liquid_touches": "blocking"
+                }]
+            },
+            "minecraft:item_visual": {
+                "geometry": "geometry.light_strip_fence_carried",
+                "material_instances": {
+                    "*": {
+                        "texture": "red",
+                        "render_method": "opaque",
+                        "ambient_occlusion": false,
+                        "face_dimming": false
+                    }
                 }
             }
         },
@@ -115,7 +132,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-2, 0, -8],
-                        "size": [4, 16, 16]
+                        "size": [4, 16, 15.99999]
                     }
                 }
             },
@@ -128,7 +145,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-8, 0, -2],
-                        "size": [16, 16, 4]
+                        "size": [15.99999, 16, 4]
                     }
                 }
             },
@@ -193,7 +210,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-2, 0, -8],
-                        "size": [4, 16, 16]
+                        "size": [4, 16, 15.99999]
                     }
                 }
             },
@@ -206,7 +223,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-2, 0, -8],
-                        "size": [4, 16, 16]
+                        "size": [4, 16, 15.99999]
                     }
                 }
             },
@@ -219,7 +236,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-8, 0, -2],
-                        "size": [16, 16, 4]
+                        "size": [15.99999, 16, 4]
                     }
                 }
             },
@@ -232,7 +249,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-8, 0, -2],
-                        "size": [16, 16, 4]
+                        "size": [15.99999, 16, 4]
                     }
                 }
             },
@@ -245,7 +262,7 @@
                     },
                     "minecraft:collision_box": {
                         "origin": [-2, 0, -8],
-                        "size": [4, 16, 16]
+                        "size": [4, 16, 15.99999]
                     }
                 }
             },
@@ -254,7 +271,7 @@
                 "components": { // E + W
                     "minecraft:collision_box": {
                         "origin": [-8, 0, -2],
-                        "size": [16, 16, 4]
+                        "size": [15.99999, 16, 4]
                     }
                 }
             }

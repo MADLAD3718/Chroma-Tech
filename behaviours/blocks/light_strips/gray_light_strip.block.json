@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.20",
+    "format_version": "1.21.60",
     "minecraft:block": {
         "description": {
             "identifier": "chroma_tech:gray_light_strip",
@@ -24,7 +24,7 @@
             }
         },
         "components": {
-            "minecraft:custom_components": ["chroma_tech:connectable_wire", "chroma_tech:prevent_underwater_placement"],
+            "minecraft:custom_components": ["chroma_tech:connectable_wire"],
             "tag:chroma_tech:wire_connect_light_strip": {},
             "minecraft:geometry": {
                 "identifier": "geometry.light_strip",
@@ -60,6 +60,12 @@
                     "block_filter": [{
                         "tags": "!query.any_tag('chroma_tech:wire_connect_light_strip', 'chroma_tech:light_strip_door', 'chroma_tech:fence_connect', 'trapdoors', 'text_sign', 'rail', 'plant', 'one_way_collidable', 'minecraft:crop', 'chroma_tech:fence_gate_connect')"
                     }]
+                }]
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [{
+                    "can_contain_liquid": true,
+                    "on_liquid_touches": "no_reaction"
                 }]
             }
         },

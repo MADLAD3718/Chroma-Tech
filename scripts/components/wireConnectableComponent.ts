@@ -89,7 +89,7 @@ function alterWireConnectionBlock(block: Block, permutation: BlockPermutation, p
             permutation = permutation.withState("chroma_tech:north", placed);
             block_nb?.setPermutation(block_nb?.permutation.withState("chroma_tech:above_south", placed));
         }
-        if (block_n?.isAir && Vec3.equal(Vec3.neg(binormal), block_nb_normal)) {
+        if (isEmpty(block_n) && Vec3.equal(Vec3.neg(binormal), block_nb_normal)) {
             permutation = permutation.withState("chroma_tech:north", placed);
             const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_nb_normal)), normal);
             const direction = Vec3.toBlockFace(relative_up);
@@ -103,7 +103,7 @@ function alterWireConnectionBlock(block: Block, permutation: BlockPermutation, p
             permutation = permutation.withState("chroma_tech:south", placed);
             block_sb?.setPermutation(block_sb?.permutation.withState("chroma_tech:above_north", placed));
         }
-        if (block_s?.isAir && Vec3.equal(binormal, block_sb_normal)) {
+        if (isEmpty(block_s) && Vec3.equal(binormal, block_sb_normal)) {
             permutation = permutation.withState("chroma_tech:south", placed);
             const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_sb_normal)), normal);
             const direction = Vec3.toBlockFace(relative_up);
@@ -117,7 +117,7 @@ function alterWireConnectionBlock(block: Block, permutation: BlockPermutation, p
             permutation = permutation.withState("chroma_tech:east", placed);
             block_eb?.setPermutation(block_eb?.permutation.withState("chroma_tech:above_west", placed));
         }
-        if (block_e?.isAir && Vec3.equal(tangent, block_eb_normal)) {
+        if (isEmpty(block_e) && Vec3.equal(tangent, block_eb_normal)) {
             permutation = permutation.withState("chroma_tech:east", placed);
             const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_eb_normal)), normal);
             const direction = Vec3.toBlockFace(relative_up);
@@ -131,7 +131,7 @@ function alterWireConnectionBlock(block: Block, permutation: BlockPermutation, p
             permutation = permutation.withState("chroma_tech:west", placed);
             block_wb?.setPermutation(block_wb?.permutation.withState("chroma_tech:above_east", placed));
         }
-        if (block_w?.isAir && Vec3.equal(Vec3.neg(tangent), block_wb_normal)) {
+        if (isEmpty(block_w) && Vec3.equal(Vec3.neg(tangent), block_wb_normal)) {
             permutation = permutation.withState("chroma_tech:west", placed);
             const relative_up = Mat3.mul(Mat3.transpose(Mat3.buildTNB(block_wb_normal)), normal);
             const direction = Vec3.toBlockFace(relative_up);
@@ -244,6 +244,11 @@ world.beforeEvents.playerBreakBlock.subscribe(({block}) => {
             system.run(() => breakWireConnectionBlock(block_b));
     }
 });
+
+function isEmpty(block: Block | undefined): Boolean {
+    if (!block) return false;
+    return block.isAir || block.isLiquid;
+}
 
 function breakWireConnectionBlock(block: Block) {
     const {dimension, permutation} = block;

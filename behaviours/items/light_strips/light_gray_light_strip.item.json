@@ -1,5 +1,5 @@
 {
-    "format_version": "1.21.10",
+    "format_version": "1.21.60",
     "minecraft:item": {
         "description": {
             "identifier": "chroma_tech:light_gray_light_strip",
@@ -7,7 +7,10 @@
         },
         "components": {
             "minecraft:display_name": { "value": "item.chroma_tech:light_gray_light_strip.name" },
-            "minecraft:block_placer": { "block": "chroma_tech:light_gray_light_strip" },
+            "minecraft:block_placer": {
+                "block": "chroma_tech:light_gray_light_strip",
+                "replace_block_item": true
+            },
             "minecraft:icon": {
                 "textures": {
                     "default": "light_gray_light_strip"
