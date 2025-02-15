@@ -245,7 +245,7 @@ world.beforeEvents.playerBreakBlock.subscribe(({block}) => {
     }
 });
 
-function isEmpty(block: Block | undefined): Boolean {
+function isEmpty(block: Block | undefined): boolean {
     if (!block) return false;
     return block.isAir || block.isLiquid;
 }
