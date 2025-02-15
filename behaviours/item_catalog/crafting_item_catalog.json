@@ -12,22 +12,22 @@
                         },
                         "items": [
                             "chroma_tech:chroma_light_strip",
-                            "chroma_tech:black_light_strip",
-                            "chroma_tech:blue_light_strip",
-                            "chroma_tech:brown_light_strip",
-                            "chroma_tech:cyan_light_strip",
-                            "chroma_tech:gray_light_strip",
-                            "chroma_tech:green_light_strip",
-                            "chroma_tech:light_blue_light_strip",
-                            "chroma_tech:light_gray_light_strip",
-                            "chroma_tech:lime_light_strip",
-                            "chroma_tech:magenta_light_strip",
-                            "chroma_tech:orange_light_strip",
-                            "chroma_tech:pink_light_strip",
-                            "chroma_tech:purple_light_strip",
-                            "chroma_tech:red_light_strip",
                             "chroma_tech:white_light_strip",
-                            "chroma_tech:yellow_light_strip"
+                            "chroma_tech:light_gray_light_strip",
+                            "chroma_tech:gray_light_strip",
+                            "chroma_tech:black_light_strip",
+                            "chroma_tech:brown_light_strip",
+                            "chroma_tech:red_light_strip",
+                            "chroma_tech:orange_light_strip",
+                            "chroma_tech:yellow_light_strip",
+                            "chroma_tech:lime_light_strip",
+                            "chroma_tech:green_light_strip",
+                            "chroma_tech:cyan_light_strip",
+                            "chroma_tech:light_blue_light_strip",
+                            "chroma_tech:blue_light_strip",
+                            "chroma_tech:purple_light_strip",
+                            "chroma_tech:magenta_light_strip",
+                            "chroma_tech:pink_light_strip"
                         ]
                     }
                 ]
