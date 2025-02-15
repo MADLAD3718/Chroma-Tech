@@ -1,6 +1,6 @@
 import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
 import { DOOR_TAG, FENCE_TAG, LIGHT_STRIP_TAG } from "../common";
-import { Vec3 } from "@madlad3718/mcvec3";
+import { Vec3 } from "@madlad3718/mcveclib";
 
 export const fenceComponent: BlockCustomComponent = {
     onPlace: event => alterFenceBlock(event.block, event.block.permutation, true),

@@ -6,7 +6,7 @@
 		"description": "An addon implementing interconnecting LED light strips!",
 		"uuid": "c507b9fe-b382-49b1-9a5b-d6f9bd025f2c",
 		"version": [3,0,0],
-		"min_engine_version": [1,21,30]
+		"min_engine_version": [1,21,60]
 	},
 	"modules": [
 		{
@@ -30,7 +30,7 @@
 		},
 		{
 			"module_name": "@minecraft/server",
-			"version": "1.15.0"
+			"version": "1.17.0"
 		}
 	]
 }

@@ -6,7 +6,7 @@ export default defineConfig({
     skipNodeModulesBundle: true,
     clean: true,
     outDir: "./behaviours/scripts",
-    noExternal: ["@madlad3718/mcvec3"],
+    noExternal: ["@madlad3718/mcveclib"],
     sourcemap: true,
     minify: false
 });

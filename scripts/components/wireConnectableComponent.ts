@@ -1,5 +1,5 @@
 import { Block, BlockCustomComponent, BlockPermutation, ItemStack, system, world } from "@minecraft/server";
-import { Mat3, Vec3 } from "@madlad3718/mcvec3";
+import { Mat3, Vec3 } from "@madlad3718/mcveclib";
 import { LIGHT_STRIP_TAG } from "../common";
 
 export const wireConnectableComponent: BlockCustomComponent = {

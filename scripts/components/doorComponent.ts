@@ -1,5 +1,5 @@
 import { Block, BlockCustomComponent, BlockPermutation, world } from "@minecraft/server";
-import { Mat3, Vec3 } from "@madlad3718/mcvec3";
+import { Mat3, Vec3 } from "@madlad3718/mcveclib";
 import { DOOR_TAG } from "../common";
 
 export const doorComponent: BlockCustomComponent = {
